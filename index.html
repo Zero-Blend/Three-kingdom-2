@@ -318,7 +318,6 @@ main{
   object-fit:cover;
 }
 
-/* ── 形態 Badge ── */
 .form-badge{
   position:absolute;
   top:8px;
@@ -358,6 +357,9 @@ main{
 }
 
 .card-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
   margin-bottom:8px;
 }
 
@@ -370,7 +372,6 @@ main{
   border:1px solid var(--border);
 }
 
-/* ── 推薦隊伍 tag ── */
 .tag-team{
   font-size:0.78rem;
   padding:4px 10px;
@@ -598,7 +599,6 @@ main{
   white-space:pre-line;
 }
 
-/* ── 懸浮作者 Badge ── */
 .author-badge{
   position:fixed;
   bottom:20px;
@@ -706,7 +706,7 @@ main{
 
   <div class="search-wrap">
     <span class="search-icon">🔍</span>
-    <input id="searchInput" type="text" placeholder="搜尋武將名稱、前綴">
+    <input id="searchInput" type="text" placeholder="搜尋武將名稱、推薦隊伍">
   </div>
 
   <button class="theme-toggle" id="themeToggle" aria-label="切換明暗模式">🌓</button>
@@ -754,7 +754,6 @@ main{
   <div class="no-results" id="noResults">🔍 目前沒有符合條件的武將</div>
 </main>
 
-<!-- 懸浮作者 Badge -->
 <div class="author-badge" aria-label="網站作者資訊">
   <div class="badge-icon">⚔️</div>
   <div>
@@ -862,6 +861,11 @@ function renderDynamicChips() {
     careerValues.map(v => createChipHTML("career", v, v, activeCareer)).join("");
 }
 
+function getTeamArray(team) {
+  if (!team) return [];
+  return Array.isArray(team) ? team : [team];
+}
+
 function renderCards(list) {
   const grid = document.getElementById("generalGrid");
   const noRes = document.getElementById("noResults");
@@ -878,9 +882,9 @@ function renderCards(list) {
     const formBadge = badgeClass
       ? `<span class="form-badge ${badgeClass}">${escapeHTML(g.form)}</span>`
       : "";
-    const teamTag = g.team
-      ? `<span class="tag-team">⚔ ${escapeHTML(g.team)}</span>`
-      : "";
+    const teamTags = getTeamArray(g.team)
+      .map(t => `<span class="tag-team">⚔ ${escapeHTML(t)}</span>`)
+      .join("");
     return `
     <article class="general-card" data-id="${g.id}" role="button" tabindex="0" aria-label="${escapeHTML(getDisplayName(g.name))}">
       <div class="rarity-bar ${g.form === "五星" ? "five-star" : g.form === "封侯" ? "hou" : ""}"></div>
@@ -896,9 +900,7 @@ function renderCards(list) {
           <span class="tag">${escapeHTML(g.troop || "-")}</span>
           <span class="tag">${escapeHTML(g.career || "-")}</span>
         </div>
-        <div class="card-meta">
-          ${teamTag}
-        </div>
+        <div class="card-meta">${teamTags}</div>
         <div class="card-desc">${escapeHTML(g.bio || "")}</div>
       </div>
     </article>
@@ -971,6 +973,9 @@ function openModal(id) {
   document.getElementById("modalFaction").textContent = `${factionMap[g.faction]?.label || g.faction}｜${g.form}`;
   document.getElementById("modalTitle").textContent = getDisplayName(g.name);
 
+  const teamArr = getTeamArray(g.team);
+  const teamDisplay = teamArr.length ? teamArr.join("、") : "-";
+
   document.getElementById("modalAttrs").innerHTML = `
     <div class="attr-item">
       <div class="attr-label">職業</div>
@@ -982,7 +987,7 @@ function openModal(id) {
     </div>
     <div class="attr-item">
       <div class="attr-label">推薦隊伍</div>
-      <div class="attr-value">${escapeHTML(g.team || "-")}</div>
+      <div class="attr-value">${escapeHTML(teamDisplay)}</div>
     </div>
     <div class="attr-item">
       <div class="attr-label">兵種</div>
@@ -1008,9 +1013,9 @@ function applyFilters() {
     const matchForm = activeForm === "all" || g.form === activeForm;
     const matchTroop = activeTroop === "all" || g.troop === activeTroop;
     const matchCareer = activeCareer === "all" || g.career === activeCareer;
-    const haystack = [g.name, g.prefix, g.troop, g.career, g.form, g.bio, g.team].join(" ").toLowerCase();
+    const teamStr = getTeamArray(g.team).join(" ");
+    const haystack = [g.name, g.prefix, g.troop, g.career, g.form, g.bio, teamStr].join(" ").toLowerCase();
     const matchSearch = !q || haystack.includes(q);
-
     return matchFaction && matchForm && matchTroop && matchCareer && matchSearch;
   });
 
@@ -1028,27 +1033,10 @@ function setChipState(selector, activeButton) {
 function handleChipClick(e) {
   const btn = e.target.closest(".filter-chip");
   if (!btn) return;
-
-  if (btn.dataset.faction !== undefined) {
-    activeFaction = btn.dataset.faction;
-    setChipState("[data-faction]", btn);
-  }
-
-  if (btn.dataset.form !== undefined) {
-    activeForm = btn.dataset.form;
-    setChipState("[data-form]", btn);
-  }
-
-  if (btn.dataset.troop !== undefined) {
-    activeTroop = btn.dataset.troop;
-    setChipState("[data-troop]", btn);
-  }
-
-  if (btn.dataset.career !== undefined) {
-    activeCareer = btn.dataset.career;
-    setChipState("[data-career]", btn);
-  }
-
+  if (btn.dataset.faction !== undefined) { activeFaction = btn.dataset.faction; setChipState("[data-faction]", btn); }
+  if (btn.dataset.form !== undefined) { activeForm = btn.dataset.form; setChipState("[data-form]", btn); }
+  if (btn.dataset.troop !== undefined) { activeTroop = btn.dataset.troop; setChipState("[data-troop]", btn); }
+  if (btn.dataset.career !== undefined) { activeCareer = btn.dataset.career; setChipState("[data-career]", btn); }
   applyFilters();
 }
 
@@ -1071,19 +1059,13 @@ function initApp() {
     console.error("❌ generals-data.js 載入失敗！");
     return;
   }
-
   initTheme();
   renderDynamicChips();
   applyFilters();
 }
 
 document.addEventListener("DOMContentLoaded", initApp);
-
-document.getElementById("searchInput").addEventListener("input", e => {
-  searchQuery = e.target.value;
-  applyFilters();
-});
-
+document.getElementById("searchInput").addEventListener("input", e => { searchQuery = e.target.value; applyFilters(); });
 document.getElementById("factionChips").addEventListener("click", handleChipClick);
 document.getElementById("formChips").addEventListener("click", handleChipClick);
 document.getElementById("troopChips").addEventListener("click", handleChipClick);
@@ -1097,22 +1079,12 @@ document.getElementById("generalGrid").addEventListener("click", e => {
 document.getElementById("generalGrid").addEventListener("keydown", e => {
   const card = e.target.closest(".general-card");
   if (!card) return;
-  if (e.key === "Enter" || e.key === " ") {
-    e.preventDefault();
-    openModal(card.dataset.id);
-  }
+  if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openModal(card.dataset.id); }
 });
 
 document.getElementById("modalClose").addEventListener("click", closeModal);
-
-document.getElementById("detailModal").addEventListener("click", e => {
-  if (e.target.id === "detailModal") closeModal();
-});
-
-document.addEventListener("keydown", e => {
-  if (e.key === "Escape") closeModal();
-});
-
+document.getElementById("detailModal").addEventListener("click", e => { if (e.target.id === "detailModal") closeModal(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
 document.getElementById("themeToggle").addEventListener("click", toggleTheme);
 </script>
 </body>
