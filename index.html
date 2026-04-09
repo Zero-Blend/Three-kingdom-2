@@ -411,7 +411,7 @@ function renderCards(list){
         ${g.image ? `<img src="${g.image}" alt="${g.name}">` : (g.emoji || "🛡️")}
       </div>
       <div class="card-body">
-        <div class="card-name">${g.name}</div>
+        <div class="card-name">${g.form === "五星" ? g.name.replace(/^五星·/, "") : g.name}</div>
         <div class="card-tags">
           <span class="tag">${factionMap[g.faction]?.label || g.faction}</span>
           <span class="tag">${g.form}</span>
@@ -462,7 +462,8 @@ function openModal(id){
   const g = generals.find(item => item.id === id);
   if(!g) return;
   document.getElementById("modalFaction").textContent = `${factionMap[g.faction]?.label || g.faction}｜${g.form}`;
-  document.getElementById("modalTitle").textContent = g.name;
+  document.getElementById("modalTitle").textContent =
+  g.form === "五星" ? g.name.replace(/^五星·/, "") : g.name;
   document.getElementById("modalAttrs").innerHTML = `
     <div class="attr-item"><div class="label">職業</div><div class="value">${g.career || "-"}</div></div>
     <div class="attr-item"><div class="label">資質</div><div class="value">${g.aptitude || "-"}</div></div>
