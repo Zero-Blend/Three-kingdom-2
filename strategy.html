@@ -67,9 +67,10 @@ main{padding:16px;max-width:900px;margin:0 auto;}
   color:var(--gold);margin-bottom:6px;text-shadow:0 0 20px var(--gold-glow);
 }
 .page-sub{color:var(--text-muted);font-size:0.95rem;margin-bottom:20px;}
+.filters{display:flex;flex-direction:column;gap:14px;margin-bottom:24px;}
 .filter-block{
   background:var(--surface-2);border:1px solid var(--border);
-  border-radius:16px;padding:14px;margin-bottom:24px;box-shadow:var(--shadow-card);
+  border-radius:16px;padding:14px;box-shadow:var(--shadow-card);
 }
 .filter-title{font-size:0.95rem;color:var(--text-muted);margin-bottom:10px;}
 .chips{display:flex;flex-wrap:wrap;gap:8px;}
@@ -114,6 +115,11 @@ main{padding:16px;max-width:900px;margin:0 auto;}
   text-shadow:0 0 10px var(--gold-glow);line-height:1.3;
 }
 .card-badges{display:flex;gap:6px;flex-wrap:wrap;align-items:center;flex-shrink:0;}
+.badge-faction{
+  font-size:0.78rem;padding:4px 10px;border-radius:9999px;
+  background:var(--surface-3);color:var(--text-muted);
+  border:1px solid var(--border);white-space:nowrap;
+}
 .badge-team{
   font-size:0.78rem;padding:4px 10px;border-radius:9999px;
   background:rgba(232,192,112,0.15);color:var(--gold);
@@ -179,9 +185,22 @@ main{padding:16px;max-width:900px;margin:0 auto;}
   <h1 class="page-title">陣容攻略</h1>
   <p class="page-sub">精選各陣容攻略連結，點擊卡片前往閱讀完整攻略。</p>
 
-  <div class="filter-block">
-    <div class="filter-title">篩選隊伍</div>
-    <div class="chips" id="teamChips"></div>
+  <div class="filters">
+    <div class="filter-block">
+      <div class="filter-title">陣營</div>
+      <div class="chips" id="factionChips">
+        <button class="filter-chip active" data-faction="all">全部</button>
+        <button class="filter-chip" data-faction="wei">魏</button>
+        <button class="filter-chip" data-faction="shu">蜀</button>
+        <button class="filter-chip" data-faction="wu">吳</button>
+        <button class="filter-chip" data-faction="qun">群</button>
+      </div>
+    </div>
+
+    <div class="filter-block">
+      <div class="filter-title">隊伍</div>
+      <div class="chips" id="teamChips"></div>
+    </div>
   </div>
 
   <div class="strategy-list" id="strategyList"></div>
@@ -206,6 +225,8 @@ main{padding:16px;max-width:900px;margin:0 auto;}
     String(d.getDate()).padStart(2,'0');
 })();
 
+const factionLabel = { wei:'魏', shu:'蜀', wu:'吳', qun:'群' };
+
 function initTheme(){
   const t = localStorage.getItem('zsg-theme');
   if(t==='light'||t==='dark') document.documentElement.dataset.theme = t;
@@ -218,6 +239,7 @@ function toggleTheme(){
 document.getElementById('themeToggle').addEventListener('click', toggleTheme);
 initTheme();
 
+let activeFaction = 'all';
 let activeTeam = 'all';
 
 function escapeHTML(s){
@@ -228,28 +250,42 @@ function formatDate(d){
   return d ? d.replace(/-/g,'.') : '-';
 }
 
-function buildChips(){
-  const teams = ['all',...new Set(strategies.map(s=>s.team))];
-  document.getElementById('teamChips').innerHTML = teams.map(t=>{
-    const label = t==='all'?'全部':t;
-    const active = t===activeTeam;
-    return `<button class="filter-chip ${active?'active':''}" data-team="${escapeHTML(t)}" aria-pressed="${active}">${escapeHTML(label)}</button>`;
+// 陣營篩選對應的 faction key 列表
+const factionMap = { wei:['wei'], shu:['shu'], wu:['wu'], qun:['qun'] };
+
+function getFilteredByFaction(){
+  if(activeFaction === 'all') return strategies;
+  return strategies.filter(s => s.faction === activeFaction);
+}
+
+function buildTeamChips(){
+  const pool = getFilteredByFaction();
+  const teams = ['all', ...new Set(pool.map(s => s.team))];
+  activeTeam = 'all'; // 切換陣營時重置隊伍
+  document.getElementById('teamChips').innerHTML = teams.map(t => {
+    const label = t === 'all' ? '全部' : t;
+    const active = t === activeTeam;
+    return `<button class="filter-chip ${active?'active':''}" data-team="${escapeHTML(t)}">${escapeHTML(label)}</button>`;
   }).join('');
 }
 
 function renderList(){
-  const list = activeTeam==='all' ? strategies : strategies.filter(s=>s.team===activeTeam);
+  let list = getFilteredByFaction();
+  if(activeTeam !== 'all') list = list.filter(s => s.team === activeTeam);
+
   const container = document.getElementById('strategyList');
   const noRes = document.getElementById('noResults');
   if(!list.length){ container.innerHTML=''; noRes.style.display='block'; return; }
   noRes.style.display='none';
-  container.innerHTML = list.map(s=>`
+
+  container.innerHTML = list.map(s => `
     <a class="strategy-card" href="${escapeHTML(s.url)}" target="_blank" rel="noopener noreferrer">
       <div class="card-accent"></div>
       <div class="card-inner">
         <div class="card-top">
           <div class="card-title">${escapeHTML(s.title)}</div>
           <div class="card-badges">
+            ${s.faction ? `<span class="badge-faction">${escapeHTML(factionLabel[s.faction] || s.faction)}</span>` : ''}
             <span class="badge-team">⚔ ${escapeHTML(s.team)}</span>
             <span class="badge-source">${escapeHTML(s.source)}</span>
           </div>
@@ -264,15 +300,26 @@ function renderList(){
   `).join('');
 }
 
-document.getElementById('teamChips').addEventListener('click', e=>{
+// 陣營篩選
+document.getElementById('factionChips').addEventListener('click', e => {
   const btn = e.target.closest('.filter-chip');
   if(!btn) return;
-  activeTeam = btn.dataset.team;
-  buildChips();
+  activeFaction = btn.dataset.faction;
+  document.querySelectorAll('#factionChips .filter-chip').forEach(b => b.classList.toggle('active', b === btn));
+  buildTeamChips();
   renderList();
 });
 
-buildChips();
+// 隊伍篩選
+document.getElementById('teamChips').addEventListener('click', e => {
+  const btn = e.target.closest('.filter-chip');
+  if(!btn) return;
+  activeTeam = btn.dataset.team;
+  document.querySelectorAll('#teamChips .filter-chip').forEach(b => b.classList.toggle('active', b === btn));
+  renderList();
+});
+
+buildTeamChips();
 renderList();
 </script>
 </body>
