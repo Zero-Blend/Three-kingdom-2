@@ -370,6 +370,23 @@ main{
   border:1px solid var(--border);
 }
 
+/* ── 推薦隊伍 tag ── */
+.tag-team{
+  font-size:0.78rem;
+  padding:4px 10px;
+  border-radius:9999px;
+  background:rgba(232,192,112,0.15);
+  color:var(--gold);
+  border:1px solid rgba(232,192,112,0.4);
+  font-weight:600;
+}
+
+[data-theme="light"] .tag-team{
+  background:rgba(166,124,46,0.10);
+  color:var(--gold-strong);
+  border:1px solid rgba(166,124,46,0.35);
+}
+
 .card-desc{
   color:var(--text-muted);
   font-size:0.9rem;
@@ -861,6 +878,9 @@ function renderCards(list) {
     const formBadge = badgeClass
       ? `<span class="form-badge ${badgeClass}">${escapeHTML(g.form)}</span>`
       : "";
+    const teamTag = g.team
+      ? `<span class="tag-team">⚔ ${escapeHTML(g.team)}</span>`
+      : "";
     return `
     <article class="general-card" data-id="${g.id}" role="button" tabindex="0" aria-label="${escapeHTML(getDisplayName(g.name))}">
       <div class="rarity-bar ${g.form === "五星" ? "five-star" : g.form === "封侯" ? "hou" : ""}"></div>
@@ -877,7 +897,7 @@ function renderCards(list) {
           <span class="tag">${escapeHTML(g.career || "-")}</span>
         </div>
         <div class="card-meta">
-          <span class="tag">${escapeHTML(g.prefix || "無")}</span>
+          ${teamTag}
         </div>
         <div class="card-desc">${escapeHTML(g.bio || "")}</div>
       </div>
@@ -961,8 +981,8 @@ function openModal(id) {
       <div class="attr-value">${escapeHTML(g.aptitude || "-")}</div>
     </div>
     <div class="attr-item">
-      <div class="attr-label">前綴</div>
-      <div class="attr-value">${escapeHTML(g.prefix || "-")}</div>
+      <div class="attr-label">推薦隊伍</div>
+      <div class="attr-value">${escapeHTML(g.team || "-")}</div>
     </div>
     <div class="attr-item">
       <div class="attr-label">兵種</div>
@@ -988,7 +1008,7 @@ function applyFilters() {
     const matchForm = activeForm === "all" || g.form === activeForm;
     const matchTroop = activeTroop === "all" || g.troop === activeTroop;
     const matchCareer = activeCareer === "all" || g.career === activeCareer;
-    const haystack = [g.name, g.prefix, g.troop, g.career, g.form, g.bio].join(" ").toLowerCase();
+    const haystack = [g.name, g.prefix, g.troop, g.career, g.form, g.bio, g.team].join(" ").toLowerCase();
     const matchSearch = !q || haystack.includes(q);
 
     return matchFaction && matchForm && matchTroop && matchCareer && matchSearch;
