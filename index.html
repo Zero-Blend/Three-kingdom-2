@@ -7,6 +7,7 @@
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet">
+
 <style>
 :root{
   --font-display:'Noto Serif TC',serif;
@@ -67,6 +68,7 @@ button,input,select{font:inherit;color:inherit;}
 button{cursor:pointer;background:none;border:none;}
 img{display:block;max-width:100%;height:auto;}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:var(--radius-sm);}
+
 header{
   position:sticky;top:0;z-index:100;
   background:var(--surface);
@@ -111,7 +113,6 @@ main{
   color:var(--gold);
   margin-bottom:var(--space-2);
 }
-.hero p{color:var(--text-muted);}
 .chips{
   display:flex;flex-wrap:wrap;gap:var(--space-2);
   margin-bottom:var(--space-4);
@@ -164,7 +165,11 @@ main{
   transform:translateY(-3px);
   border-color:rgba(212,168,67,0.35);
 }
+/* 不同形態不同顏色條 */
 .rarity-bar{height:4px;background:linear-gradient(90deg,#8e44ad,#f1c40f);}
+.rarity-bar.five-star{background:linear-gradient(90deg,#f39c12,#f1c40f);}
+.rarity-bar.hou{background:linear-gradient(90deg,#9b59b6,#e74c3c);}
+
 .card-art{
   height:150px;
   display:flex;align-items:center;justify-content:center;
@@ -172,11 +177,7 @@ main{
   background:radial-gradient(circle at center, rgba(212,168,67,0.12), transparent 70%);
   overflow:hidden;
 }
-.card-art img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
+.card-art img{width:100%;height:100%;object-fit:cover;}
 .card-body{padding:var(--space-4);}
 .card-name{
   font-family:var(--font-display);
@@ -301,6 +302,7 @@ main{
 @media (max-width:720px){
   .filters{flex-direction:column;align-items:stretch;}
   .filter-group{justify-content:space-between;border-radius:var(--radius-lg);}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(260px,1fr));}
 }
 </style>
 </head>
@@ -320,10 +322,12 @@ main{
   </div>
   <button class="theme-toggle" id="themeToggle" aria-label="切換主題">🌓</button>
 </header>
+
 <main>
   <section class="hero">
     <h1>武將圖鑒</h1>
   </section>
+
   <div class="chips">
     <button class="filter-chip active" data-faction="all">全部</button>
     <button class="filter-chip" data-faction="wei">魏</button>
@@ -331,6 +335,7 @@ main{
     <button class="filter-chip" data-faction="wu">吳</button>
     <button class="filter-chip" data-faction="qun">群</button>
   </div>
+
   <section class="filters">
     <div class="filter-group">
       <label for="formFilter">形態</label>
@@ -343,20 +348,18 @@ main{
     </div>
     <div class="filter-group">
       <label for="troopFilter">兵種</label>
-      <select id="troopFilter">
-        <option value="all">全部</option>
-      </select>
+      <select id="troopFilter"><option value="all">全部</option></select>
     </div>
     <div class="filter-group">
       <label for="careerFilter">職業</label>
-      <select id="careerFilter">
-        <option value="all">全部</option>
-      </select>
+      <select id="careerFilter"><option value="all">全部</option></select>
     </div>
   </section>
+
   <section class="grid" id="generalGrid" role="list"></section>
   <div class="no-results" id="noResults">🔍 找不到符合條件的武將</div>
 </main>
+
 <div class="modal" id="detailModal" aria-hidden="true">
   <div class="modal-panel">
     <div class="modal-content">
@@ -374,8 +377,10 @@ main{
     </div>
   </div>
 </div>
+
 <script src="hero/generals-data.js"></script>
 <script>
+// ====================== 全局變數 ======================
 const factionMap = {
   all: { label: "全部" },
   wei: { label: "魏" },
@@ -383,35 +388,48 @@ const factionMap = {
   wu: { label: "吳" },
   qun: { label: "群" }
 };
+
 let activeFaction = "all";
 let activeForm = "all";
 let activeTroop = "all";
 let activeCareer = "all";
 let searchQuery = "";
-function uniqueValues(key){
+
+// ====================== 工具函式 ======================
+function getDisplayName(name) {
+  return name.replace(/^(五星·|封侯·|拜將·)/, '');
+}
+
+function uniqueValues(key) {
   return [...new Set(generals.map(g => g[key]).filter(Boolean))];
 }
-function fillSelectOptions(selectId, values){
+
+function fillSelectOptions(selectId, values) {
   const select = document.getElementById(selectId);
-  select.innerHTML = `<option value="all">全部</option>` + values.map(v => `<option value="${v}">${v}</option>`).join("");
+  select.innerHTML = `<option value="all">全部</option>` + 
+    values.map(v => `<option value="${v}">${v}</option>`).join("");
 }
-function renderCards(list){
+
+// ====================== 渲染卡片 ======================
+function renderCards(list) {
   const grid = document.getElementById("generalGrid");
   const noRes = document.getElementById("noResults");
-  if(!list.length){
+
+  if (!list.length) {
     grid.innerHTML = "";
     noRes.style.display = "block";
     return;
   }
+
   noRes.style.display = "none";
   grid.innerHTML = list.map(g => `
     <article class="general-card" data-id="${g.id}" role="listitem" tabindex="0">
-      <div class="rarity-bar"></div>
+      <div class="rarity-bar ${g.form === '五星' ? 'five-star' : g.form === '封侯' ? 'hou' : ''}"></div>
       <div class="card-art">
-        ${g.image ? `<img src="${g.image}" alt="${g.name}">` : (g.emoji || "🛡️")}
+        ${g.image ? `<img src="${g.image}" alt="${getDisplayName(g.name)}">` : "🛡️"}
       </div>
       <div class="card-body">
-        <div class="card-name">${g.form === "五星" ? g.name.replace(/^五星·/, "") : g.name}</div>
+        <div class="card-name">${getDisplayName(g.name)}</div>
         <div class="card-tags">
           <span class="tag">${factionMap[g.faction]?.label || g.faction}</span>
           <span class="tag">${g.form}</span>
@@ -419,27 +437,34 @@ function renderCards(list){
           <span class="tag">${g.career}</span>
         </div>
         <div class="card-meta">
-          <span class="tag">${g.prefix}</span>
+          <span class="tag">${g.prefix || '無'}</span>
         </div>
-        <div class="card-desc">${g.bio || ""}</div>
+        <div class="card-desc">${g.bio || ''}</div>
       </div>
     </article>
   `).join("");
 }
-function renderSkillItem(skill){
+
+// ====================== 技能渲染 ======================
+function renderSkillItem(skill) {
+  if (!skill) return '';
   return `
     <div class="skill-item">
       <div class="skill-top">
         <div class="skill-name">${skill.name}</div>
         <div class="skill-type">${skill.type || "技能"}</div>
       </div>
-      ${(skill.cost || skill.cooldown) ? `<div class="skill-meta">消耗：${skill.cost || "-"}　冷卻：${skill.cooldown || "-"}</div>` : ""}
-      <div class="skill-desc">${skill.desc || ""}</div>
+      ${(skill.cost || skill.cooldown) ? `
+      <div class="skill-meta">
+        消耗：${skill.cost || '-'}　冷卻：${skill.cooldown || '-'}
+      </div>` : ''}
+      <div class="skill-desc">${skill.desc || ''}</div>
     </div>
   `;
 }
-function renderSkillGroup(title, items){
-  if(!items || !items.length) return "";
+
+function renderSkillGroup(title, items) {
+  if (!items || !items.length) return '';
   return `
     <section class="skill-group">
       <div class="skill-group-title">${title}</div>
@@ -449,52 +474,108 @@ function renderSkillGroup(title, items){
     </section>
   `;
 }
-function buildSkillSections(g){
+
+function buildSkillSections(g) {
   const groups = [];
-  if(g.form === "封侯" && g.skills.lord) groups.push(renderSkillGroup("主公技", [g.skills.lord]));
-  if(g.skills.active) groups.push(renderSkillGroup("主動技", [g.skills.active]));
-  if(g.skills.passives?.length) groups.push(renderSkillGroup("被動技", g.skills.passives));
-  if(g.form === "拜將" && g.skills.strategy?.length) groups.push(renderSkillGroup("將略技", g.skills.strategy));
-  if(g.form === "拜將" && g.skills.followers?.length) groups.push(renderSkillGroup("隨從技能", g.skills.followers));
+  
+  // 主公技（僅封侯）
+  if (g.form === "封侯" && g.skills?.lord) {
+    groups.push(renderSkillGroup("主公技", [g.skills.lord]));
+  }
+  // 主動技
+  if (g.skills?.active) {
+    groups.push(renderSkillGroup("主動技", [g.skills.active]));
+  }
+  // 被動技
+  if (g.skills?.passives?.length) {
+    groups.push(renderSkillGroup("被動技", g.skills.passives));
+  }
+  // 將略技（拜將）
+  if (g.form === "拜將" && g.skills?.strategy?.length) {
+    groups.push(renderSkillGroup("將略技", g.skills.strategy));
+  }
+  // 隨從技能（拜將）
+  if (g.form === "拜將" && g.skills?.followers?.length) {
+    groups.push(renderSkillGroup("隨從技能", g.skills.followers));
+  }
+
   return groups.join("");
 }
-function openModal(id){
+
+// ====================== Modal ======================
+function openModal(id) {
   const g = generals.find(item => item.id === id);
-  if(!g) return;
+  if (!g) return;
+
   document.getElementById("modalFaction").textContent = `${factionMap[g.faction]?.label || g.faction}｜${g.form}`;
-  document.getElementById("modalTitle").textContent =
-  g.form === "五星" ? g.name.replace(/^五星·/, "") : g.name;
+  document.getElementById("modalTitle").textContent = getDisplayName(g.name);
+
   document.getElementById("modalAttrs").innerHTML = `
     <div class="attr-item"><div class="label">職業</div><div class="value">${g.career || "-"}</div></div>
     <div class="attr-item"><div class="label">資質</div><div class="value">${g.aptitude || "-"}</div></div>
     <div class="attr-item"><div class="label">前綴</div><div class="value">${g.prefix || "-"}</div></div>
     <div class="attr-item"><div class="label">兵種</div><div class="value">${g.troop || "-"}</div></div>
   `;
+
   document.getElementById("modalSkills").innerHTML = buildSkillSections(g);
   document.getElementById("detailModal").classList.add("open");
-  document.getElementById("detailModal").setAttribute("aria-hidden", "false");
 }
-function closeModal(){
-  document.getElementById("detailModal").classList.remove("open");
-  document.getElementById("detailModal").setAttribute("aria-hidden", "true");
+
+function closeModal() {
+  const modal = document.getElementById("detailModal");
+  modal.classList.remove("open");
 }
-function applyFilters(){
+
+// ====================== 篩選邏輯 ======================
+function applyFilters() {
   const q = searchQuery.trim().toLowerCase();
+
   const filtered = generals.filter(g => {
     const matchFaction = activeFaction === "all" || g.faction === activeFaction;
     const matchForm = activeForm === "all" || g.form === activeForm;
     const matchTroop = activeTroop === "all" || g.troop === activeTroop;
     const matchCareer = activeCareer === "all" || g.career === activeCareer;
-    const haystack = [g.name, g.prefix, g.troop, g.career, g.form, g.bio].join(" ").toLowerCase();
+
+    const haystack = [
+      g.name, 
+      g.prefix, 
+      g.troop, 
+      g.career, 
+      g.form, 
+      g.bio
+    ].join(" ").toLowerCase();
+
     const matchSearch = !q || haystack.includes(q);
+
     return matchFaction && matchForm && matchTroop && matchCareer && matchSearch;
   });
+
   renderCards(filtered);
 }
+
+// ====================== 初始化 ======================
+function initApp() {
+  if (typeof generals === "undefined" || !Array.isArray(generals)) {
+    console.error("❌ generals-data.js 載入失敗！請確認檔案路徑正確。");
+    document.getElementById("generalGrid").innerHTML = `<p style="color:#f66;padding:2rem;text-align:center;">武將資料載入失敗，請檢查 hero/generals-data.js</p>`;
+    return;
+  }
+
+  fillSelectOptions("troopFilter", uniqueValues("troop"));
+  fillSelectOptions("careerFilter", uniqueValues("career"));
+  applyFilters();
+
+  console.log(`✅ 武將圖鑒初始化完成，共 ${generals.length} 位武將`);
+}
+
+// ====================== 事件綁定 ======================
+document.addEventListener("DOMContentLoaded", initApp);
+
 document.getElementById("searchInput").addEventListener("input", e => {
   searchQuery = e.target.value;
   applyFilters();
 });
+
 document.querySelectorAll(".filter-chip").forEach(btn => {
   btn.addEventListener("click", () => {
     document.querySelectorAll(".filter-chip").forEach(el => el.classList.remove("active"));
@@ -503,6 +584,7 @@ document.querySelectorAll(".filter-chip").forEach(btn => {
     applyFilters();
   });
 });
+
 document.getElementById("formFilter").addEventListener("change", e => {
   activeForm = e.target.value;
   applyFilters();
@@ -515,32 +597,33 @@ document.getElementById("careerFilter").addEventListener("change", e => {
   activeCareer = e.target.value;
   applyFilters();
 });
+
 document.getElementById("generalGrid").addEventListener("click", e => {
   const card = e.target.closest(".general-card");
-  if(card) openModal(Number(card.dataset.id));
+  if (card) openModal(parseInt(card.dataset.id, 10));
 });
+
 document.getElementById("generalGrid").addEventListener("keydown", e => {
-  if(e.key !== "Enter" && e.key !== " ") return;
+  if (e.key !== "Enter" && e.key !== " ") return;
   const card = e.target.closest(".general-card");
-  if(card){
+  if (card) {
     e.preventDefault();
-    openModal(Number(card.dataset.id));
+    openModal(parseInt(card.dataset.id, 10));
   }
 });
+
 document.getElementById("modalClose").addEventListener("click", closeModal);
 document.getElementById("detailModal").addEventListener("click", e => {
-  if(e.target.id === "detailModal") closeModal();
+  if (e.target.id === "detailModal") closeModal();
 });
 document.addEventListener("keydown", e => {
-  if(e.key === "Escape") closeModal();
+  if (e.key === "Escape") closeModal();
 });
+
 document.getElementById("themeToggle").addEventListener("click", () => {
   const html = document.documentElement;
   html.dataset.theme = html.dataset.theme === "dark" ? "light" : "dark";
 });
-fillSelectOptions("troopFilter", uniqueValues("troop"));
-fillSelectOptions("careerFilter", uniqueValues("career"));
-applyFilters();
 </script>
 </body>
 </html>
