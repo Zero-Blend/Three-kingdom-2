@@ -16,7 +16,7 @@ generals_wei.push({
   prefix: "天命",
   troop: "戎車",
   image: "heroimage/Tianmingcaocao.png",
-  bio: "魏國最強法術核心，掌控戰場節奏，以天命之力號令三軍、集火制敵，越是逆境越能爆發無限潛力。",
+  bio: "魏天命輸出核心，集火制敵、強征法傷，越是逆境越能爆發，以一人之力掌控全局。",
   skills: {
     lord: {
       name: "究·UR集滅天之破",
@@ -220,7 +220,7 @@ generals_wei.push({
   prefix: "圖南",
   troop: "戎車",
   image: "heroimage/TuNanZhenji.png",
-  bio: "以水域為核心的魏國輔助型策士，能削弱敵方策防、連結主將分攤傷害，並透過治療、抗性、擊退免疫與瀕死保命提升隊伍續戰力；同時可用水域牽引與減速壓制敵軍，兼具保護、控場與增傷能力。",
+  bio: "以水域控場的魏國輔助策士，連結分攤、削敵策防、治癒友軍，瀕死亦能反殺牽制敵軍。",
   skills: {
     lord: null,
     active: {
