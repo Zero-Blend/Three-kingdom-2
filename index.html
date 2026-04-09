@@ -302,6 +302,7 @@ main{
   background:linear-gradient(90deg,#c44569,#9b59b6);
 }
 
+/* ── card-art 容器加 relative 以容納 Badge ── */
 .card-art{
   height:195px;
   overflow:hidden;
@@ -309,12 +310,48 @@ main{
   display:flex;
   align-items:center;
   justify-content:center;
+  position:relative;
 }
 
 .card-art img{
   width:100%;
   height:100%;
   object-fit:cover;
+}
+
+/* ── 形態 Badge ── */
+.form-badge{
+  position:absolute;
+  top:8px;
+  right:8px;
+  font-family:var(--font-display);
+  font-size:0.72rem;
+  font-weight:700;
+  padding:3px 10px;
+  border-radius:9999px;
+  letter-spacing:0.04em;
+  backdrop-filter:blur(6px);
+  pointer-events:none;
+  white-space:nowrap;
+  box-shadow:0 2px 8px rgba(0,0,0,0.45);
+}
+
+.form-badge.hou{
+  background:linear-gradient(135deg,rgba(196,69,105,0.88),rgba(155,89,182,0.88));
+  color:#fff;
+  border:1px solid rgba(255,255,255,0.22);
+}
+
+.form-badge.bai{
+  background:linear-gradient(135deg,rgba(232,192,112,0.90),rgba(212,168,67,0.90));
+  color:#1a1200;
+  border:1px solid rgba(255,255,255,0.22);
+}
+
+.form-badge.five{
+  background:linear-gradient(135deg,rgba(244,162,97,0.88),rgba(231,111,81,0.88));
+  color:#fff;
+  border:1px solid rgba(255,255,255,0.22);
 }
 
 .card-body{
@@ -768,6 +805,14 @@ const factionMap = {
   qun: { label: "群" }
 };
 
+// 形態 Badge 樣式映射
+function getFormBadgeClass(form) {
+  if (form === "封侯") return "hou";
+  if (form === "拜將") return "bai";
+  if (form === "五星") return "five";
+  return "";
+}
+
 let activeFaction = "all";
 let activeForm = "all";
 let activeTroop = "all";
@@ -829,11 +874,17 @@ function renderCards(list) {
   }
 
   noRes.style.display = "none";
-  grid.innerHTML = list.map(g => `
+  grid.innerHTML = list.map(g => {
+    const badgeClass = getFormBadgeClass(g.form);
+    const formBadge = badgeClass
+      ? `<span class="form-badge ${badgeClass}">${escapeHTML(g.form)}</span>`
+      : "";
+    return `
     <article class="general-card" data-id="${g.id}" role="button" tabindex="0" aria-label="${escapeHTML(getDisplayName(g.name))}">
       <div class="rarity-bar ${g.form === "五星" ? "five-star" : g.form === "封侯" ? "hou" : ""}"></div>
       <div class="card-art">
         ${g.image ? `<img src="${escapeHTML(g.image)}" alt="${escapeHTML(getDisplayName(g.name))}">` : "🛡️"}
+        ${formBadge}
       </div>
       <div class="card-body">
         <div class="card-name">${escapeHTML(getDisplayName(g.name))}</div>
@@ -849,7 +900,8 @@ function renderCards(list) {
         <div class="card-desc">${escapeHTML(g.bio || "")}</div>
       </div>
     </article>
-  `).join("");
+  `;
+  }).join("");
 }
 
 function renderSkillItem(skill, isLord = false) {
