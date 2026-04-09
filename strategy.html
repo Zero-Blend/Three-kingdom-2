@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>真三國大戰2｜陣容攻略</title>
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --font-display:'Noto Serif TC',serif;
+  --font-body:'Satoshi',sans-serif;
+  --transition:180ms cubic-bezier(0.16,1,0.3,1);
+}
+[data-theme="dark"]{
+  --bg:#0a0906; --surface:#12100c; --surface-2:#1a170f; --surface-3:#242015;
+  --card-soft:#1f1b14; --border:rgba(232,192,112,0.18);
+  --text:#f0e6d2; --text-muted:#a38b6b;
+  --gold:#e8c070; --gold-strong:#f0c979;
+  --gold-soft:rgba(232,192,112,0.12); --gold-glow:rgba(232,192,112,0.28);
+  --shadow-card:0 8px 32px rgba(0,0,0,0.75);
+  --header-bg:rgba(10,9,6,0.95); --input-bg:#1f1b14;
+}
+[data-theme="light"]{
+  --bg:#f6f1e7; --surface:#fffaf1; --surface-2:#fdf7ec; --surface-3:#f3eadb;
+  --card-soft:#f6edde; --border:rgba(145,108,42,0.18);
+  --text:#35281b; --text-muted:#7a6854;
+  --gold:#a67c2e; --gold-strong:#8d6724;
+  --gold-soft:rgba(166,124,46,0.08); --gold-glow:rgba(166,124,46,0.10);
+  --shadow-card:0 8px 24px rgba(77,57,24,0.08);
+  --header-bg:rgba(246,241,231,0.92); --input-bg:#fffaf2;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{color-scheme:dark light;}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-height:100dvh;line-height:1.6;}
+button{cursor:pointer;font:inherit;}
+a{text-decoration:none;}
+header{
+  position:sticky;top:0;z-index:100;
+  background:var(--header-bg);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:12px 16px;display:flex;align-items:center;gap:12px;
+}
+.logo{
+  display:flex;align-items:center;gap:8px;
+  color:var(--gold);font-family:var(--font-display);
+  font-size:1.35rem;font-weight:700;letter-spacing:0.05em;
+  text-shadow:0 0 15px var(--gold-glow);flex-shrink:0;
+}
+.logo svg{width:32px;height:32px;flex-shrink:0;}
+.nav-links{display:flex;gap:8px;flex:1;}
+.nav-link{
+  padding:8px 16px;border-radius:9999px;
+  border:1px solid var(--border);background:var(--card-soft);
+  color:var(--text-muted);font-size:0.9rem;transition:all var(--transition);
+}
+.nav-link:hover,.nav-link.active{border-color:var(--gold);color:var(--gold);}
+.theme-toggle{
+  width:42px;height:42px;background:var(--input-bg);
+  color:var(--text);border:1px solid var(--border);
+  border-radius:50%;font-size:1.2rem;display:grid;place-items:center;
+}
+.theme-toggle:hover{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-soft);}
+main{padding:16px;max-width:900px;margin:0 auto;}
+.page-title{
+  font-family:var(--font-display);font-size:1.85rem;
+  color:var(--gold);margin-bottom:6px;text-shadow:0 0 20px var(--gold-glow);
+}
+.page-sub{color:var(--text-muted);font-size:0.95rem;margin-bottom:20px;}
+.filter-block{
+  background:var(--surface-2);border:1px solid var(--border);
+  border-radius:16px;padding:14px;margin-bottom:24px;box-shadow:var(--shadow-card);
+}
+.filter-title{font-size:0.95rem;color:var(--text-muted);margin-bottom:10px;}
+.chips{display:flex;flex-wrap:wrap;gap:8px;}
+.filter-chip{
+  padding:10px 18px;border-radius:9999px;
+  border:1px solid var(--border);background:var(--card-soft);
+  color:var(--text);font-size:0.95rem;font-weight:500;
+  white-space:nowrap;transition:all var(--transition);
+}
+.filter-chip:hover{border-color:var(--gold);transform:translateY(-1px);}
+.filter-chip.active{
+  background:var(--gold);color:#111;
+  border-color:var(--gold);box-shadow:0 4px 14px var(--gold-glow);
+}
+[data-theme="light"] .filter-chip.active{
+  color:#fffaf2;background:linear-gradient(180deg,#b98a36,#9a7228);border-color:#9a7228;
+}
+.strategy-list{display:flex;flex-direction:column;gap:16px;}
+.strategy-card{
+  display:flex;align-items:stretch;
+  background:var(--surface-2);border:1px solid var(--border);
+  border-radius:18px;overflow:hidden;
+  box-shadow:var(--shadow-card);transition:all var(--transition);
+  color:inherit;
+}
+.strategy-card:hover{
+  transform:translateY(-4px);border-color:var(--gold);
+  box-shadow:0 12px 40px rgba(232,192,112,0.18);
+}
+.card-accent{
+  width:6px;flex-shrink:0;
+  background:linear-gradient(180deg,var(--gold),#b8880a);
+}
+.card-inner{padding:18px 20px;flex:1;display:flex;flex-direction:column;gap:8px;}
+.card-top{
+  display:flex;align-items:flex-start;
+  justify-content:space-between;gap:12px;flex-wrap:wrap;
+}
+.card-title{
+  font-family:var(--font-display);font-size:1.25rem;
+  color:var(--gold);font-weight:700;
+  text-shadow:0 0 10px var(--gold-glow);line-height:1.3;
+}
+.card-badges{display:flex;gap:6px;flex-wrap:wrap;align-items:center;flex-shrink:0;}
+.badge-team{
+  font-size:0.78rem;padding:4px 10px;border-radius:9999px;
+  background:rgba(232,192,112,0.15);color:var(--gold);
+  border:1px solid rgba(232,192,112,0.4);font-weight:600;white-space:nowrap;
+}
+[data-theme="light"] .badge-team{
+  background:rgba(166,124,46,0.10);color:var(--gold-strong);
+  border:1px solid rgba(166,124,46,0.35);
+}
+.badge-source{
+  font-size:0.78rem;padding:4px 10px;border-radius:9999px;
+  background:var(--surface-3);color:var(--text-muted);
+  border:1px solid var(--border);white-space:nowrap;
+}
+.card-desc{color:var(--text-muted);font-size:0.95rem;line-height:1.6;}
+.card-footer{
+  display:flex;align-items:center;
+  justify-content:space-between;margin-top:4px;
+}
+.card-date{font-size:0.82rem;color:var(--text-muted);display:flex;align-items:center;gap:5px;}
+.card-link-hint{font-size:0.82rem;color:var(--gold);display:flex;align-items:center;gap:4px;opacity:0.8;}
+.no-results{text-align:center;color:var(--text-muted);padding:80px 20px;font-size:1.05rem;display:none;}
+.author-badge{
+  position:fixed;bottom:20px;right:16px;z-index:50;
+  background:var(--surface-2);border:1px solid var(--border);
+  border-radius:14px;padding:10px 14px;
+  display:flex;align-items:center;gap:10px;
+  font-size:0.82rem;box-shadow:var(--shadow-card);
+  backdrop-filter:blur(8px);pointer-events:none;
+}
+.badge-icon{font-size:1.3rem;line-height:1;}
+.badge-name{color:var(--gold);font-family:var(--font-display);font-weight:700;text-shadow:0 0 8px var(--gold-glow);}
+.badge-date-el{color:var(--text-muted);font-size:0.76rem;}
+@media(max-width:640px){
+  header{padding:10px 12px;gap:8px;}
+  .logo{font-size:1.1rem;}
+  .logo svg{width:26px;height:26px;}
+  .nav-link{padding:7px 12px;font-size:0.82rem;}
+  .card-title{font-size:1.1rem;}
+  .author-badge{bottom:12px;right:12px;padding:8px 12px;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="index.html">
+    <svg viewBox="0 0 28 28" fill="none">
+      <polygon points="14,2 26,8 26,20 14,26 2,20 2,8" stroke="currentColor" stroke-width="1.5" fill="none"/>
+      <polygon points="14,6 22,10 22,18 14,22 6,18 6,10" stroke="currentColor" stroke-width="0.8" fill="none" opacity="0.5"/>
+      <text x="14" y="18.5" text-anchor="middle" font-size="10" fill="currentColor" font-weight="bold" font-family="serif">将</text>
+    </svg>
+    真三國大戰2
+  </a>
+  <nav class="nav-links">
+    <a class="nav-link" href="index.html">武將圖鑑</a>
+    <a class="nav-link active" href="strategy.html">陣容攻略</a>
+  </nav>
+  <button class="theme-toggle" id="themeToggle">🌓</button>
+</header>
+
+<main>
+  <h1 class="page-title">陣容攻略</h1>
+  <p class="page-sub">精選各陣容攻略連結，點擊卡片前往閱讀完整攻略。</p>
+
+  <div class="filter-block">
+    <div class="filter-title">篩選隊伍</div>
+    <div class="chips" id="teamChips"></div>
+  </div>
+
+  <div class="strategy-list" id="strategyList"></div>
+  <div class="no-results" id="noResults">🔍 目前沒有符合條件的攻略</div>
+</main>
+
+<div class="author-badge">
+  <div class="badge-icon">⚔️</div>
+  <div>
+    <div class="badge-name">無糖</div>
+    <div class="badge-date-el" id="badgeDate"></div>
+  </div>
+</div>
+
+<script src="hero/data-strategy.js"></script>
+<script>
+(function(){
+  const d = new Date();
+  document.getElementById('badgeDate').textContent =
+    '更新 ' + d.getFullYear() + '-' +
+    String(d.getMonth()+1).padStart(2,'0') + '-' +
+    String(d.getDate()).padStart(2,'0');
+})();
+
+function initTheme(){
+  const t = localStorage.getItem('zsg-theme');
+  if(t==='light'||t==='dark') document.documentElement.dataset.theme = t;
+}
+function toggleTheme(){
+  const next = document.documentElement.dataset.theme==='dark'?'light':'dark';
+  document.documentElement.dataset.theme = next;
+  localStorage.setItem('zsg-theme', next);
+}
+document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+initTheme();
+
+let activeTeam = 'all';
+
+function escapeHTML(s){
+  return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function formatDate(d){
+  return d ? d.replace(/-/g,'.') : '-';
+}
+
+function buildChips(){
+  const teams = ['all',...new Set(strategies.map(s=>s.team))];
+  document.getElementById('teamChips').innerHTML = teams.map(t=>{
+    const label = t==='all'?'全部':t;
+    const active = t===activeTeam;
+    return `<button class="filter-chip ${active?'active':''}" data-team="${escapeHTML(t)}" aria-pressed="${active}">${escapeHTML(label)}</button>`;
+  }).join('');
+}
+
+function renderList(){
+  const list = activeTeam==='all' ? strategies : strategies.filter(s=>s.team===activeTeam);
+  const container = document.getElementById('strategyList');
+  const noRes = document.getElementById('noResults');
+  if(!list.length){ container.innerHTML=''; noRes.style.display='block'; return; }
+  noRes.style.display='none';
+  container.innerHTML = list.map(s=>`
+    <a class="strategy-card" href="${escapeHTML(s.url)}" target="_blank" rel="noopener noreferrer">
+      <div class="card-accent"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="card-title">${escapeHTML(s.title)}</div>
+          <div class="card-badges">
+            <span class="badge-team">⚔ ${escapeHTML(s.team)}</span>
+            <span class="badge-source">${escapeHTML(s.source)}</span>
+          </div>
+        </div>
+        <div class="card-desc">${escapeHTML(s.desc)}</div>
+        <div class="card-footer">
+          <span class="card-date">📅 更新：${escapeHTML(formatDate(s.date))}</span>
+          <span class="card-link-hint">前往閱讀 →</span>
+        </div>
+      </div>
+    </a>
+  `).join('');
+}
+
+document.getElementById('teamChips').addEventListener('click', e=>{
+  const btn = e.target.closest('.filter-chip');
+  if(!btn) return;
+  activeTeam = btn.dataset.team;
+  buildChips();
+  renderList();
+});
+
+buildChips();
+renderList();
+</script>
+</body>
+</html>
