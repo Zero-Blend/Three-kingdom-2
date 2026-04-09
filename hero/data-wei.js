@@ -110,7 +110,7 @@ generals_wei.push({
 // ── 圖南·郭女王 ──
 generals_wei.push({
   id: 3,
-  name: "圖南·郭女王",
+  name: "圖南郭女王",
   faction: "wei",
   form: "拜將",
   career: "策士型",
