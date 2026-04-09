@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>真三國大戰2｜武將圖鑒</title>
+<title>真三國大戰2｜武將圖鑑</title>
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet">
 
@@ -16,712 +16,222 @@
   --text-base:clamp(1rem,0.95rem + 0.25vw,1.125rem);
   --text-lg:clamp(1.125rem,1rem + 0.75vw,1.5rem);
   --text-xl:clamp(1.5rem,1.2rem + 1.25vw,2.25rem);
-  --space-1:0.25rem;
-  --space-2:0.5rem;
-  --space-3:0.75rem;
-  --space-4:1rem;
-  --space-6:1.5rem;
-  --space-8:2rem;
-  --radius-sm:0.375rem;
-  --radius-md:0.5rem;
-  --radius-lg:0.75rem;
-  --radius-xl:1rem;
-  --radius-full:9999px;
+  --space-1:0.25rem;--space-2:0.5rem;--space-3:0.75rem;--space-4:1rem;
+  --space-6:1.5rem;--space-8:2rem;
+  --radius-sm:0.375rem;--radius-md:0.5rem;--radius-lg:0.75rem;
+  --radius-xl:1rem;--radius-full:9999px;
   --transition:180ms cubic-bezier(0.16,1,0.3,1);
 }
-
 [data-theme="dark"]{
-  --bg:#0a0906;
-  --surface:#12100c;
-  --surface-2:#1a170f;
-  --surface-3:#242015;
-  --card-soft:#1f1b14;
-  --border:rgba(232,192,112,0.18);
-  --text:#f0e6d2;
-  --text-muted:#a38b6b;
-  --gold:#e8c070;
-  --gold-strong:#f0c979;
-  --gold-soft:rgba(232,192,112,0.12);
-  --gold-glow:rgba(232,192,112,0.28);
+  --bg:#0a0906;--surface:#12100c;--surface-2:#1a170f;--surface-3:#242015;
+  --card-soft:#1f1b14;--border:rgba(232,192,112,0.18);
+  --text:#f0e6d2;--text-muted:#a38b6b;
+  --gold:#e8c070;--gold-strong:#f0c979;
+  --gold-soft:rgba(232,192,112,0.12);--gold-glow:rgba(232,192,112,0.28);
   --shadow-card:0 8px 32px rgba(0,0,0,0.75);
-  --header-bg:rgba(10,9,6,0.95);
-  --input-bg:#1f1b14;
+  --header-bg:rgba(10,9,6,0.95);--input-bg:#1f1b14;
 }
-
 [data-theme="light"]{
-  --bg:#f6f1e7;
-  --surface:#fffaf1;
-  --surface-2:#fdf7ec;
-  --surface-3:#f3eadb;
-  --card-soft:#f6edde;
-  --border:rgba(145,108,42,0.18);
-  --text:#35281b;
-  --text-muted:#7a6854;
-  --gold:#a67c2e;
-  --gold-strong:#8d6724;
-  --gold-soft:rgba(166,124,46,0.08);
-  --gold-glow:rgba(166,124,46,0.10);
+  --bg:#f6f1e7;--surface:#fffaf1;--surface-2:#fdf7ec;--surface-3:#f3eadb;
+  --card-soft:#f6edde;--border:rgba(145,108,42,0.18);
+  --text:#35281b;--text-muted:#7a6854;
+  --gold:#a67c2e;--gold-strong:#8d6724;
+  --gold-soft:rgba(166,124,46,0.08);--gold-glow:rgba(166,124,46,0.10);
   --shadow-card:0 8px 24px rgba(77,57,24,0.08);
-  --header-bg:rgba(246,241,231,0.92);
-  --input-bg:#fffaf2;
+  --header-bg:rgba(246,241,231,0.92);--input-bg:#fffaf2;
 }
-
-*,*::before,*::after{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-html{
-  color-scheme:dark light;
-}
-
-body{
-  font-family:var(--font-body);
-  background:var(--bg);
-  color:var(--text);
-  min-height:100dvh;
-  line-height:1.6;
-}
-
-button,input{
-  font:inherit;
-}
-
-button{
-  cursor:pointer;
-}
-
-img{
-  display:block;
-  max-width:100%;
-}
-
-a{
-  text-decoration:none;
-}
-
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{color-scheme:dark light;}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-height:100dvh;line-height:1.6;}
+button,input{font:inherit;}
+button{cursor:pointer;}
+img{display:block;max-width:100%;}
+a{text-decoration:none;}
 header{
-  position:sticky;
-  top:0;
-  z-index:100;
-  background:var(--header-bg);
-  backdrop-filter:blur(12px);
+  position:sticky;top:0;z-index:100;
+  background:var(--header-bg);backdrop-filter:blur(12px);
   border-bottom:1px solid var(--border);
-  padding:12px 16px;
-  display:flex;
-  align-items:center;
-  gap:12px;
+  padding:12px 16px;display:flex;align-items:center;gap:12px;
 }
-
 .logo{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  text-decoration:none;
-  color:var(--gold);
-  font-family:var(--font-display);
-  font-size:1.35rem;
-  font-weight:700;
-  letter-spacing:0.05em;
-  text-shadow:0 0 15px var(--gold-glow);
-  flex-shrink:0;
+  display:flex;align-items:center;gap:8px;
+  text-decoration:none;color:var(--gold);font-family:var(--font-display);
+  font-size:1.35rem;font-weight:700;letter-spacing:0.05em;
+  text-shadow:0 0 15px var(--gold-glow);flex-shrink:0;
 }
-
-.logo svg{
-  width:32px;
-  height:32px;
-  flex-shrink:0;
-}
-
-.nav-links{
-  display:flex;
-  gap:8px;
-  flex-shrink:0;
-}
-
+.logo svg{width:32px;height:32px;flex-shrink:0;}
+.nav-links{display:flex;gap:8px;flex-shrink:0;}
 .nav-link{
-  padding:8px 16px;
-  border-radius:9999px;
-  border:1px solid var(--border);
-  background:var(--card-soft);
-  color:var(--text-muted);
-  font-size:0.9rem;
-  transition:all var(--transition);
-  white-space:nowrap;
+  padding:8px 16px;border-radius:9999px;
+  border:1px solid var(--border);background:var(--card-soft);
+  color:var(--text-muted);font-size:0.9rem;transition:all var(--transition);white-space:nowrap;
 }
-
-.nav-link:hover,
-.nav-link.active{
-  border-color:var(--gold);
-  color:var(--gold);
-}
-
-.search-wrap{
-  flex:1;
-  position:relative;
-}
-
+.nav-link:hover,.nav-link.active{border-color:var(--gold);color:var(--gold);}
+.search-wrap{flex:1;position:relative;}
 .search-wrap input{
-  width:100%;
-  background:var(--input-bg);
-  border:1px solid var(--border);
-  border-radius:9999px;
-  padding:12px 16px 12px 48px;
-  font-size:1rem;
-  color:var(--text);
-  outline:none;
+  width:100%;background:var(--input-bg);border:1px solid var(--border);
+  border-radius:9999px;padding:12px 16px 12px 48px;
+  font-size:1rem;color:var(--text);outline:none;
 }
-
-.search-wrap input::placeholder{
-  color:var(--text-muted);
-}
-
-.search-wrap input:focus{
-  border-color:var(--gold);
-  box-shadow:0 0 0 3px var(--gold-soft);
-}
-
-.search-icon{
-  position:absolute;
-  left:18px;
-  top:50%;
-  transform:translateY(-50%);
-  font-size:1.1rem;
-  opacity:0.7;
-}
-
+.search-wrap input::placeholder{color:var(--text-muted);}
+.search-wrap input:focus{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-soft);}
+.search-icon{position:absolute;left:18px;top:50%;transform:translateY(-50%);font-size:1.1rem;opacity:0.7;}
 .theme-toggle{
-  width:42px;
-  height:42px;
-  background:var(--input-bg);
-  color:var(--text);
-  border:1px solid var(--border);
-  border-radius:50%;
-  font-size:1.2rem;
-  display:grid;
-  place-items:center;
+  width:42px;height:42px;background:var(--input-bg);color:var(--text);
+  border:1px solid var(--border);border-radius:50%;font-size:1.2rem;display:grid;place-items:center;
 }
-
-.theme-toggle:hover{
-  border-color:var(--gold);
-  box-shadow:0 0 0 3px var(--gold-soft);
-}
-
-main{
-  padding:16px;
-  max-width:1280px;
-  margin:0 auto;
-}
-
-.hero{
-  margin-bottom:12px;
-}
-
+.theme-toggle:hover{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-soft);}
+main{padding:16px;max-width:1280px;margin:0 auto;}
+.hero{margin-bottom:12px;}
 .hero h1{
-  font-family:var(--font-display);
-  font-size:1.85rem;
-  color:var(--gold);
-  margin-bottom:16px;
-  text-shadow:0 0 20px var(--gold-glow);
+  font-family:var(--font-display);font-size:1.85rem;
+  color:var(--gold);margin-bottom:16px;text-shadow:0 0 20px var(--gold-glow);
 }
-
-.filters{
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-  margin-bottom:24px;
-}
-
+.filters{display:flex;flex-direction:column;gap:14px;margin-bottom:24px;}
 .filter-block{
-  background:var(--surface-2);
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:14px;
-  box-shadow:var(--shadow-card);
+  background:var(--surface-2);border:1px solid var(--border);
+  border-radius:16px;padding:14px;box-shadow:var(--shadow-card);
 }
-
-.filter-title{
-  font-size:0.95rem;
-  color:var(--text-muted);
-  margin-bottom:10px;
-}
-
-.chips{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-}
-
+.filter-title{font-size:0.95rem;color:var(--text-muted);margin-bottom:10px;}
+.chips{display:flex;flex-wrap:wrap;gap:8px;}
 .filter-chip{
-  padding:10px 18px;
-  border-radius:9999px;
-  border:1px solid var(--border);
-  background:var(--card-soft);
-  color:var(--text);
-  font-size:0.95rem;
-  font-weight:500;
-  white-space:nowrap;
-  transition:all var(--transition);
+  padding:10px 18px;border-radius:9999px;
+  border:1px solid var(--border);background:var(--card-soft);
+  color:var(--text);font-size:0.95rem;font-weight:500;
+  white-space:nowrap;transition:all var(--transition);
 }
-
-.filter-chip:hover{
-  border-color:var(--gold);
-  transform:translateY(-1px);
-}
-
-.filter-chip:focus-visible{
-  outline:none;
-  border-color:var(--gold);
-  box-shadow:0 0 0 3px var(--gold-soft);
-}
-
+.filter-chip:hover{border-color:var(--gold);transform:translateY(-1px);}
+.filter-chip:focus-visible{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-soft);}
 .filter-chip.active{
-  background:var(--gold);
-  color:#111;
-  border-color:var(--gold);
-  box-shadow:0 4px 14px var(--gold-glow);
+  background:var(--gold);color:#111;
+  border-color:var(--gold);box-shadow:0 4px 14px var(--gold-glow);
 }
-
 [data-theme="light"] .filter-chip.active{
-  color:#fffaf2;
-  background:linear-gradient(180deg,#b98a36,#9a7228);
-  border-color:#9a7228;
-  box-shadow:0 4px 12px rgba(166,124,46,0.18);
+  color:#fffaf2;background:linear-gradient(180deg,#b98a36,#9a7228);
+  border-color:#9a7228;box-shadow:0 4px 12px rgba(166,124,46,0.18);
 }
-
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fill, minmax(168px, 1fr));
   gap:14px;
 }
-
 .general-card{
-  background:var(--surface-2);
-  border:1px solid var(--border);
-  border-radius:18px;
-  overflow:hidden;
-  box-shadow:var(--shadow-card);
-  transition:all var(--transition);
-  cursor:pointer;
+  background:var(--surface-2);border:1px solid var(--border);
+  border-radius:18px;overflow:hidden;
+  box-shadow:var(--shadow-card);transition:all var(--transition);cursor:pointer;
 }
-
-.general-card:hover{
-  transform:translateY(-6px);
-  border-color:var(--gold);
-}
-
-.general-card:focus-visible{
-  outline:none;
-  border-color:var(--gold);
-  box-shadow:0 0 0 3px var(--gold-soft);
-}
-
-.rarity-bar{
-  height:5px;
-}
-
-.rarity-bar.five-star{
-  background:linear-gradient(90deg,#f4a261,#e76f51);
-}
-
-.rarity-bar.hou{
-  background:linear-gradient(90deg,#c44569,#9b59b6);
-}
-
+.general-card:hover{transform:translateY(-6px);border-color:var(--gold);}
+.general-card:focus-visible{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-soft);}
+.rarity-bar{height:5px;}
+.rarity-bar.five-star{background:linear-gradient(90deg,#f4a261,#e76f51);}
+.rarity-bar.hou{background:linear-gradient(90deg,#c44569,#9b59b6);}
 .card-art{
-  height:195px;
-  overflow:hidden;
-  background:var(--surface-3);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  position:relative;
+  height:195px;overflow:hidden;background:var(--surface-3);
+  display:flex;align-items:center;justify-content:center;position:relative;
 }
-
 .card-art img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
+  width:100%;height:100%;object-fit:cover;
+  /* 延遲載入，避免開始大量下載 */
+  loading:lazy;
 }
-
 .form-badge{
-  position:absolute;
-  top:8px;
-  right:8px;
-  font-family:var(--font-display);
-  font-size:0.72rem;
-  font-weight:700;
-  padding:3px 10px;
-  border-radius:9999px;
-  letter-spacing:0.04em;
-  backdrop-filter:blur(8px);
-  pointer-events:none;
-  white-space:nowrap;
-  background:rgba(0,0,0,0.45);
-  color:#fff;
-  border:1px solid rgba(255,255,255,0.18);
-  box-shadow:0 2px 8px rgba(0,0,0,0.35);
+  position:absolute;top:8px;right:8px;
+  font-family:var(--font-display);font-size:0.72rem;font-weight:700;
+  padding:3px 10px;border-radius:9999px;letter-spacing:0.04em;
+  backdrop-filter:blur(8px);pointer-events:none;white-space:nowrap;
+  background:rgba(0,0,0,0.45);color:#fff;
+  border:1px solid rgba(255,255,255,0.18);box-shadow:0 2px 8px rgba(0,0,0,0.35);
 }
-
-.card-body{
-  padding:14px;
-}
-
-.card-name{
-  font-family:var(--font-display);
-  font-size:1.18rem;
-  margin-bottom:8px;
-  line-height:1.3;
-  color:var(--text);
-}
-
-.card-tags{
-  display:flex;
-  flex-wrap:wrap;
-  gap:6px;
-  margin-bottom:10px;
-}
-
-.card-meta{
-  display:flex;
-  flex-wrap:wrap;
-  gap:6px;
-  margin-bottom:8px;
-}
-
-.tag{
-  font-size:0.78rem;
-  padding:4px 10px;
-  border-radius:9999px;
-  background:var(--surface-3);
-  color:var(--text);
-  border:1px solid var(--border);
-}
-
+.card-body{padding:14px;}
+.card-name{font-family:var(--font-display);font-size:1.18rem;margin-bottom:8px;line-height:1.3;color:var(--text);}
+.card-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
+.card-meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;}
+.tag{font-size:0.78rem;padding:4px 10px;border-radius:9999px;background:var(--surface-3);color:var(--text);border:1px solid var(--border);}
 .tag-team{
-  font-size:0.78rem;
-  padding:4px 10px;
-  border-radius:9999px;
-  background:rgba(232,192,112,0.15);
-  color:var(--gold);
-  border:1px solid rgba(232,192,112,0.4);
-  font-weight:600;
+  font-size:0.78rem;padding:4px 10px;border-radius:9999px;
+  background:rgba(232,192,112,0.15);color:var(--gold);
+  border:1px solid rgba(232,192,112,0.4);font-weight:600;
 }
-
 [data-theme="light"] .tag-team{
-  background:rgba(166,124,46,0.10);
-  color:var(--gold-strong);
+  background:rgba(166,124,46,0.10);color:var(--gold-strong);
   border:1px solid rgba(166,124,46,0.35);
 }
-
-.card-desc{
-  color:var(--text-muted);
-  font-size:0.9rem;
-  line-height:1.6;
-}
-
-.no-results{
-  text-align:center;
-  color:var(--text-muted);
-  padding:80px 20px;
-  font-size:1.05rem;
-  display:none;
-}
-
+.card-desc{color:var(--text-muted);font-size:0.9rem;line-height:1.6;}
+.no-results{text-align:center;color:var(--text-muted);padding:80px 20px;font-size:1.05rem;display:none;}
+/* Modal */
 .modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.76);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:16px;
-  z-index:1000;
+  position:fixed;inset:0;background:rgba(0,0,0,0.76);
+  display:none;align-items:center;justify-content:center;
+  padding:16px;z-index:1000;
 }
-
-[data-theme="light"] .modal{
-  background:rgba(70,52,24,0.24);
-}
-
-.modal.open{
-  display:flex;
-}
-
+[data-theme="light"] .modal{background:rgba(70,52,24,0.24);}
+.modal.open{display:flex;}
 .modal-panel{
-  width:100%;
-  max-width:540px;
-  max-height:94dvh;
-  overflow:auto;
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:20px;
-  box-shadow:var(--shadow-card);
+  width:100%;max-width:540px;max-height:94dvh;overflow:auto;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:20px;box-shadow:var(--shadow-card);
 }
-
-.modal-content{
-  padding:20px;
-}
-
-.modal-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  margin-bottom:20px;
-  gap:12px;
-}
-
-.modal-subtitle{
-  color:var(--text-muted);
-  margin-bottom:6px;
-  font-size:1.05rem;
-}
-
-.modal-title{
-  font-size:1.65rem;
-  color:var(--gold);
-  font-family:var(--font-display);
-  line-height:1.3;
-}
-
-.modal-close{
-  background:none;
-  border:none;
-  font-size:2rem;
-  color:var(--text-muted);
-  padding:0 8px;
-  line-height:1;
-}
-
-.modal-close:hover{
-  color:var(--gold);
-}
-
-.section-title{
-  color:var(--gold);
-  margin:20px 0 12px;
-  font-size:1.1rem;
-}
-
-.attr-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-  margin-bottom:30px;
-}
-
-.attr-item{
-  background:var(--card-soft);
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:14px;
-}
-
-.attr-label{
-  color:var(--text-muted);
-  font-size:0.9rem;
-  margin-bottom:4px;
-}
-
-.attr-value{
-  font-weight:700;
-  color:var(--text);
-}
-
-.skill-group{
-  margin-bottom:28px;
-}
-
-.skill-group-title{
-  color:var(--gold);
-  font-family:var(--font-display);
-  font-size:1.25rem;
-  margin-bottom:12px;
-}
-
-.skill-list{
-  gap:14px;
-  display:flex;
-  flex-direction:column;
-}
-
+.modal-content{padding:20px;}
+.modal-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;gap:12px;}
+.modal-subtitle{color:var(--text-muted);margin-bottom:6px;font-size:1.05rem;}
+.modal-title{font-size:1.65rem;color:var(--gold);font-family:var(--font-display);line-height:1.3;}
+.modal-close{background:none;border:none;font-size:2rem;color:var(--text-muted);padding:0 8px;line-height:1;}
+.modal-close:hover{color:var(--gold);}
+.section-title{color:var(--gold);margin:20px 0 12px;font-size:1.1rem;}
+.attr-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:30px;}
+.attr-item{background:var(--card-soft);border:1px solid var(--border);border-radius:12px;padding:14px;}
+.attr-label{color:var(--text-muted);font-size:0.9rem;margin-bottom:4px;}
+.attr-value{font-weight:700;color:var(--text);}
+.skill-group{margin-bottom:28px;}
+.skill-group-title{color:var(--gold);font-family:var(--font-display);font-size:1.25rem;margin-bottom:12px;}
+.skill-list{gap:14px;display:flex;flex-direction:column;}
 .skill-item{
-  background:var(--surface-2);
-  border:1px solid rgba(232,192,112,0.22);
-  border-radius:16px;
-  padding:18px;
-  box-shadow:0 0 15px rgba(232,192,112,0.08);
+  background:var(--surface-2);border:1px solid rgba(232,192,112,0.22);
+  border-radius:16px;padding:18px;box-shadow:0 0 15px rgba(232,192,112,0.08);
 }
-
-.skill-item:hover{
-  border-color:var(--gold);
-  box-shadow:0 0 22px var(--gold-glow);
-}
-
+.skill-item:hover{border-color:var(--gold);box-shadow:0 0 22px var(--gold-glow);}
 .skill-item.lord{
   border-color:#ffcc66;
-  background:linear-gradient(180deg, rgba(232,192,112,0.08), var(--surface-2));
+  background:linear-gradient(180deg,rgba(232,192,112,0.08),var(--surface-2));
 }
-
-[data-theme="light"] .skill-item{
-  border:1px solid rgba(145,108,42,0.16);
-  box-shadow:0 4px 16px rgba(77,57,24,0.06);
-}
-
-.skill-top{
-  display:flex;
-  align-items:center;
-  gap:14px;
-  margin-bottom:12px;
-}
-
+[data-theme="light"] .skill-item{border:1px solid rgba(145,108,42,0.16);box-shadow:0 4px 16px rgba(77,57,24,0.06);}
+.skill-top{display:flex;align-items:center;gap:14px;margin-bottom:12px;}
 .skill-icon{
-  width:52px;
-  height:52px;
+  width:52px;height:52px;
   background:linear-gradient(135deg,#e8c070,#d4a843);
-  border-radius:12px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:1.75rem;
-  flex-shrink:0;
+  border-radius:12px;display:flex;align-items:center;justify-content:center;
+  font-size:1.75rem;flex-shrink:0;
   box-shadow:0 0 14px rgba(232,192,112,0.35);
   border:1px solid rgba(255,255,255,0.22);
 }
-
-.skill-name{
-  font-family:var(--font-display);
-  font-size:1.28rem;
-  font-weight:700;
-  color:var(--gold);
-  text-shadow:0 0 10px var(--gold-glow);
-  flex:1;
-  line-height:1.3;
-}
-
-.skill-type{
-  margin-top:6px;
-  display:inline-flex;
-  align-items:center;
-  font-size:0.82rem;
-  padding:4px 14px;
-  border-radius:9999px;
-  background:rgba(232,192,112,0.15);
-  color:var(--gold);
-  border:1px solid var(--gold);
-  white-space:nowrap;
-}
-
-.skill-meta{
-  color:var(--gold);
-  font-size:0.98rem;
-  margin-bottom:12px;
-  font-weight:500;
-}
-
-.skill-desc{
-  color:var(--text-muted);
-  font-size:0.96rem;
-  line-height:1.7;
-  white-space:pre-line;
-}
-
+.skill-name{font-family:var(--font-display);font-size:1.28rem;font-weight:700;color:var(--gold);text-shadow:0 0 10px var(--gold-glow);flex:1;line-height:1.3;}
+.skill-type{margin-top:6px;display:inline-flex;align-items:center;font-size:0.82rem;padding:4px 14px;border-radius:9999px;background:rgba(232,192,112,0.15);color:var(--gold);border:1px solid var(--gold);white-space:nowrap;}
+.skill-meta{color:var(--gold);font-size:0.98rem;margin-bottom:12px;font-weight:500;}
+.skill-desc{color:var(--text-muted);font-size:0.96rem;line-height:1.7;white-space:pre-line;}
 .author-badge{
-  position:fixed;
-  bottom:20px;
-  right:16px;
-  z-index:50;
-  background:var(--surface-2);
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:10px 14px;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-size:0.82rem;
-  box-shadow:var(--shadow-card);
-  backdrop-filter:blur(8px);
-  transition:all var(--transition);
-  pointer-events:none;
+  position:fixed;bottom:20px;right:16px;z-index:50;
+  background:var(--surface-2);border:1px solid var(--border);
+  border-radius:14px;padding:10px 14px;
+  display:flex;align-items:center;gap:10px;
+  font-size:0.82rem;box-shadow:var(--shadow-card);
+  backdrop-filter:blur(8px);transition:all var(--transition);pointer-events:none;
 }
-
-.author-badge:hover{
-  border-color:var(--gold);
-  box-shadow:0 0 18px var(--gold-glow);
-}
-
-.badge-icon{
-  font-size:1.3rem;
-  line-height:1;
-}
-
-.badge-name{
-  color:var(--gold);
-  font-family:var(--font-display);
-  font-weight:700;
-  line-height:1.3;
-  text-shadow:0 0 8px var(--gold-glow);
-}
-
-.badge-date{
-  color:var(--text-muted);
-  font-size:0.76rem;
-  line-height:1.3;
-}
-
-@media (max-width:640px){
-  header{
-    padding:10px 12px;
-    gap:8px;
-    flex-wrap:wrap;
-  }
-
-  .logo{
-    font-size:1.1rem;
-  }
-
-  .logo svg{
-    width:28px;
-    height:28px;
-  }
-
-  .nav-link{
-    padding:7px 12px;
-    font-size:0.82rem;
-  }
-
-  .search-wrap input{
-    padding:11px 14px 11px 42px;
-    font-size:0.95rem;
-  }
-
-  .search-icon{
-    left:15px;
-    font-size:1rem;
-  }
-
-  .theme-toggle{
-    width:40px;
-    height:40px;
-  }
-
-  .attr-grid{
-    grid-template-columns:1fr;
-  }
-
-  .modal-title{
-    font-size:1.4rem;
-  }
-
-  .skill-name{
-    font-size:1.12rem;
-  }
-
-  .author-badge{
-    bottom:12px;
-    right:12px;
-    padding:8px 12px;
-  }
+.author-badge:hover{border-color:var(--gold);box-shadow:0 0 18px var(--gold-glow);}
+.badge-icon{font-size:1.3rem;line-height:1;}
+.badge-name{color:var(--gold);font-family:var(--font-display);font-weight:700;line-height:1.3;text-shadow:0 0 8px var(--gold-glow);}
+.badge-date{color:var(--text-muted);font-size:0.76rem;line-height:1.3;}
+@media(max-width:640px){
+  header{padding:10px 12px;gap:8px;flex-wrap:wrap;}
+  .logo{font-size:1.1rem;}
+  .logo svg{width:28px;height:28px;}
+  .nav-link{padding:7px 12px;font-size:0.82rem;}
+  .search-wrap input{padding:11px 14px 11px 42px;font-size:0.95rem;}
+  .search-icon{left:15px;font-size:1rem;}
+  .theme-toggle{width:40px;height:40px;}
+  .attr-grid{grid-template-columns:1fr;}
+  .modal-title{font-size:1.4rem;}
+  .skill-name{font-size:1.12rem;}
+  .author-badge{bottom:12px;right:12px;padding:8px 12px;}
 }
 </style>
 </head>
@@ -736,24 +246,19 @@ main{
     </svg>
     真三國大戰2
   </a>
-
   <nav class="nav-links">
     <a class="nav-link active" href="index.html">武將圖鑑</a>
     <a class="nav-link" href="strategy.html">陣容攻略</a>
   </nav>
-
   <div class="search-wrap">
     <span class="search-icon">🔍</span>
     <input id="searchInput" type="text" placeholder="搜尋武將名稱、推薦隊伍">
   </div>
-
   <button class="theme-toggle" id="themeToggle" aria-label="切換明暗模式">🌓</button>
 </header>
 
 <main>
-  <div class="hero">
-    <h1>武將圖鑑</h1>
-  </div>
+  <div class="hero"><h1>武將圖鑑</h1></div>
 
   <section class="filters">
     <div class="filter-block">
@@ -766,7 +271,6 @@ main{
         <button class="filter-chip" data-faction="qun" aria-pressed="false">群</button>
       </div>
     </div>
-
     <div class="filter-block">
       <div class="filter-title">形態</div>
       <div class="chips" id="formChips" aria-label="形態篩選">
@@ -776,12 +280,10 @@ main{
         <button class="filter-chip" data-form="封侯" aria-pressed="false">封侯</button>
       </div>
     </div>
-
     <div class="filter-block">
       <div class="filter-title">兵種</div>
       <div class="chips" id="troopChips" aria-label="兵種篩選"></div>
     </div>
-
     <div class="filter-block">
       <div class="filter-title">職業</div>
       <div class="chips" id="careerChips" aria-label="職業篩選"></div>
@@ -810,10 +312,8 @@ main{
         </div>
         <button id="modalClose" class="modal-close" aria-label="關閉視窗">✕</button>
       </div>
-
       <p class="section-title">卡片屬性</p>
       <div id="modalAttrs" class="attr-grid"></div>
-
       <p class="section-title">技能</p>
       <div id="modalSkills"></div>
     </div>
@@ -828,302 +328,229 @@ main{
 <script>
 (function(){
   const d = new Date();
-  const y = d.getFullYear();
-  const m = String(d.getMonth()+1).padStart(2,'0');
-  const day = String(d.getDate()).padStart(2,'0');
-  document.getElementById('badgeDate').textContent = '更新 ' + y + '-' + m + '-' + day;
+  document.getElementById('badgeDate').textContent =
+    '更新 ' + d.getFullYear() + '-' +
+    String(d.getMonth()+1).padStart(2,'0') + '-' +
+    String(d.getDate()).padStart(2,'0');
 })();
 
 const factionMap = {
-  all: { label: "全部" },
-  wei: { label: "魏" },
-  shu: { label: "蜀" },
-  wu: { label: "吳" },
-  qun: { label: "群" }
+  all:{label:'全部'},wei:{label:'魏'},shu:{label:'蜀'},wu:{label:'吳'},qun:{label:'群'}
 };
 
-function getFormBadgeClass(form) {
-  if (form === "封侯") return "hou";
-  if (form === "拜將") return "bai";
-  if (form === "五星") return "five";
-  return "";
+function getFormBadgeClass(form){
+  if(form==='封侯') return 'hou';
+  if(form==='拜將') return 'bai';
+  if(form==='五星') return 'five';
+  return '';
 }
 
-let activeFaction = "all";
-let activeForm = "all";
-let activeTroop = "all";
-let activeCareer = "all";
-let searchQuery = "";
+let activeFaction='all', activeForm='all', activeTroop='all', activeCareer='all', searchQuery='';
 
-function getDisplayName(name) {
-  return String(name || "").replace(/^(五星·|封侯·|拜將·)/, "");
+function getDisplayName(name){ return String(name||'').replace(/^(五星·|封侯·|拜將·)/,''); }
+function uniqueValues(key){ return [...new Set(generals.map(g=>g[key]).filter(Boolean))]; }
+function escapeHTML(str){
+  return String(str??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
 }
 
-function uniqueValues(key) {
-  return [...new Set(generals.map(g => g[key]).filter(Boolean))];
+// 防抖：停打字 delay ms 後才執行
+function debounce(fn, delay){
+  let timer;
+  return function(...args){
+    clearTimeout(timer);
+    timer = setTimeout(()=>fn.apply(this, args), delay);
+  };
 }
 
-function escapeHTML(str) {
-  return String(str ?? "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-}
-
-function createChipHTML(type, value, label, activeValue) {
+function createChipHTML(type, value, label, activeValue){
   const isActive = value === activeValue;
-  return `
-    <button
-      class="filter-chip ${isActive ? "active" : ""}"
-      data-${type}="${escapeHTML(value)}"
-      aria-pressed="${isActive ? "true" : "false"}"
-      type="button"
-    >
-      ${escapeHTML(label)}
-    </button>
-  `;
+  return `<button class="filter-chip ${isActive?'active':''}" data-${type}="${escapeHTML(value)}" aria-pressed="${isActive}" type="button">${escapeHTML(label)}</button>`;
 }
 
-function renderDynamicChips() {
-  const troopValues = uniqueValues("troop");
-  const careerValues = uniqueValues("career");
-
-  document.getElementById("troopChips").innerHTML =
-    createChipHTML("troop", "all", "全部", activeTroop) +
-    troopValues.map(v => createChipHTML("troop", v, v, activeTroop)).join("");
-
-  document.getElementById("careerChips").innerHTML =
-    createChipHTML("career", "all", "全部", activeCareer) +
-    careerValues.map(v => createChipHTML("career", v, v, activeCareer)).join("");
+function renderDynamicChips(){
+  const troopValues = uniqueValues('troop');
+  const careerValues = uniqueValues('career');
+  document.getElementById('troopChips').innerHTML =
+    createChipHTML('troop','all','全部',activeTroop) +
+    troopValues.map(v=>createChipHTML('troop',v,v,activeTroop)).join('');
+  document.getElementById('careerChips').innerHTML =
+    createChipHTML('career','all','全部',activeCareer) +
+    careerValues.map(v=>createChipHTML('career',v,v,activeCareer)).join('');
 }
 
-function getTeamArray(team) {
-  if (!team) return [];
+function getTeamArray(team){
+  if(!team) return [];
   return Array.isArray(team) ? team : [team];
 }
 
-function renderCards(list) {
-  const grid = document.getElementById("generalGrid");
-  const noRes = document.getElementById("noResults");
-
-  if (!list.length) {
-    grid.innerHTML = "";
-    noRes.style.display = "block";
-    return;
-  }
-
-  noRes.style.display = "none";
-  grid.innerHTML = list.map(g => {
-    const badgeClass = getFormBadgeClass(g.form);
-    const formBadge = badgeClass
-      ? `<span class="form-badge ${badgeClass}">${escapeHTML(g.form)}</span>`
-      : "";
-    const teamTags = getTeamArray(g.team)
-      .map(t => `<span class="tag-team">⚔ ${escapeHTML(t)}</span>`)
-      .join("");
-    return `
-    <article class="general-card" data-id="${g.id}" role="button" tabindex="0" aria-label="${escapeHTML(getDisplayName(g.name))}">
-      <div class="rarity-bar ${g.form === "五星" ? "five-star" : g.form === "封侯" ? "hou" : ""}"></div>
-      <div class="card-art">
-        ${g.image ? `<img src="${escapeHTML(g.image)}" alt="${escapeHTML(getDisplayName(g.name))}">` : "🛡️"}
-        ${formBadge}
-      </div>
-      <div class="card-body">
-        <div class="card-name">${escapeHTML(getDisplayName(g.name))}</div>
-        <div class="card-tags">
-          <span class="tag">${escapeHTML(factionMap[g.faction]?.label || g.faction || "-")}</span>
-          <span class="tag">${escapeHTML(g.form || "-")}</span>
-          <span class="tag">${escapeHTML(g.troop || "-")}</span>
-          <span class="tag">${escapeHTML(g.career || "-")}</span>
-        </div>
-        <div class="card-meta">${teamTags}</div>
-        <div class="card-desc">${escapeHTML(g.bio || "")}</div>
-      </div>
-    </article>
-  `;
-  }).join("");
+function renderCards(list){
+  const grid = document.getElementById('generalGrid');
+  const noRes = document.getElementById('noResults');
+  if(!list.length){ grid.innerHTML=''; noRes.style.display='block'; return; }
+  noRes.style.display='none';
+  // requestAnimationFrame 避免阻塞主執行緒
+  requestAnimationFrame(()=>{
+    grid.innerHTML = list.map(g=>{
+      const badgeClass = getFormBadgeClass(g.form);
+      const formBadge = badgeClass ? `<span class="form-badge ${badgeClass}">${escapeHTML(g.form)}</span>` : '';
+      const teamTags = getTeamArray(g.team).map(t=>`<span class="tag-team">⚔ ${escapeHTML(t)}</span>`).join('');
+      const imgHTML = g.image
+        ? `<img src="${escapeHTML(g.image)}" alt="${escapeHTML(getDisplayName(g.name))}" loading="lazy">`
+        : '🛡️';
+      return `
+        <article class="general-card" data-id="${g.id}" role="button" tabindex="0" aria-label="${escapeHTML(getDisplayName(g.name))}">
+          <div class="rarity-bar ${g.form==='五星'?'five-star':g.form==='封侯'?'hou':''}"></div>
+          <div class="card-art">${imgHTML}${formBadge}</div>
+          <div class="card-body">
+            <div class="card-name">${escapeHTML(getDisplayName(g.name))}</div>
+            <div class="card-tags">
+              <span class="tag">${escapeHTML(factionMap[g.faction]?.label||g.faction||'-')}</span>
+              <span class="tag">${escapeHTML(g.form||'-')}</span>
+              <span class="tag">${escapeHTML(g.troop||'-')}</span>
+              <span class="tag">${escapeHTML(g.career||'-')}</span>
+            </div>
+            <div class="card-meta">${teamTags}</div>
+            <div class="card-desc">${escapeHTML(g.bio||'')}</div>
+          </div>
+        </article>`;
+    }).join('');
+  });
 }
 
-function renderSkillItem(skill, isLord = false) {
-  if (!skill) return "";
-  const lordClass = isLord ? " lord" : "";
-  let icon = "⚔️";
-  if (isLord) icon = "👑";
-  else if (skill.type?.includes("主動")) icon = "🔥";
-  else if (skill.type?.includes("被動")) icon = "🛡️";
-
+function renderSkillItem(skill, isLord=false){
+  if(!skill) return '';
+  const lordClass = isLord?' lord':'';
+  let icon='⚔️';
+  if(isLord) icon='👑';
+  else if(skill.type?.includes('主動')) icon='🔥';
+  else if(skill.type?.includes('被動')) icon='🛡️';
   return `
     <div class="skill-item${lordClass}">
       <div class="skill-top">
         <div class="skill-icon">${icon}</div>
         <div style="flex:1">
-          <div class="skill-name">${escapeHTML(skill.name || "未命名技能")}</div>
-          <div class="skill-type">${escapeHTML(skill.type || "技能")}</div>
+          <div class="skill-name">${escapeHTML(skill.name||'未命名技能')}</div>
+          <div class="skill-type">${escapeHTML(skill.type||'技能')}</div>
         </div>
       </div>
-      ${(skill.cost || skill.cooldown) ? `
-      <div class="skill-meta">
-        消耗：${escapeHTML(skill.cost || "-")}　　冷卻：${escapeHTML(skill.cooldown || "-")}
-      </div>` : ""}
-      <div class="skill-desc">${escapeHTML(skill.desc || "")}</div>
-    </div>
-  `;
+      ${(skill.cost||skill.cooldown)?`<div class="skill-meta">消耗：${escapeHTML(skill.cost||'-')}　　冷卻：${escapeHTML(skill.cooldown||'-')}</div>`:''}
+      <div class="skill-desc">${escapeHTML(skill.desc||'')}</div>
+    </div>`;
 }
 
-function renderSkillGroup(title, items, isLordGroup = false) {
-  if (!items || !items.length) return "";
-  return `
-    <section class="skill-group">
-      <div class="skill-group-title">${escapeHTML(title)}</div>
-      <div class="skill-list">
-        ${items.map(item => renderSkillItem(item, isLordGroup)).join("")}
-      </div>
-    </section>
-  `;
+function renderSkillGroup(title, items, isLordGroup=false){
+  if(!items||!items.length) return '';
+  return `<section class="skill-group"><div class="skill-group-title">${escapeHTML(title)}</div><div class="skill-list">${items.map(i=>renderSkillItem(i,isLordGroup)).join('')}</div></section>`;
 }
 
-function buildSkillSections(g) {
-  const groups = [];
-  if (g.form === "封侯" && g.skills?.lord) {
-    groups.push(renderSkillGroup("主公技", [g.skills.lord], true));
-  }
-  if (g.skills?.active) {
-    groups.push(renderSkillGroup("主動技", [g.skills.active]));
-  }
-  if (g.skills?.passives?.length) {
-    groups.push(renderSkillGroup("被動技", g.skills.passives));
-  }
-  if (g.form === "拜將" && g.skills?.strategy?.length) {
-    groups.push(renderSkillGroup("將略技", g.skills.strategy));
-  }
-  if (g.form === "拜將" && g.skills?.followers?.length) {
-    groups.push(renderSkillGroup("隨從技能", g.skills.followers));
-  }
-  return groups.join("");
+function buildSkillSections(g){
+  const groups=[];
+  if(g.form==='封侯'&&g.skills?.lord) groups.push(renderSkillGroup('主公技',[g.skills.lord],true));
+  if(g.skills?.active) groups.push(renderSkillGroup('主動技',[g.skills.active]));
+  if(g.skills?.passives?.length) groups.push(renderSkillGroup('被動技',g.skills.passives));
+  if(g.form==='拜將'&&g.skills?.strategy?.length) groups.push(renderSkillGroup('將略技',g.skills.strategy));
+  if(g.form==='拜將'&&g.skills?.followers?.length) groups.push(renderSkillGroup('隨從技能',g.skills.followers));
+  return groups.join('');
 }
 
-function openModal(id) {
-  const g = generals.find(item => Number(item.id) === Number(id));
-  if (!g) return;
-
-  document.getElementById("modalFaction").textContent = `${factionMap[g.faction]?.label || g.faction}｜${g.form}`;
-  document.getElementById("modalTitle").textContent = getDisplayName(g.name);
-
+function openModal(id){
+  const g = generals.find(item=>Number(item.id)===Number(id));
+  if(!g) return;
+  document.getElementById('modalFaction').textContent = `${factionMap[g.faction]?.label||g.faction}｜${g.form}`;
+  document.getElementById('modalTitle').textContent = getDisplayName(g.name);
   const teamArr = getTeamArray(g.team);
-  const teamDisplay = teamArr.length ? teamArr.join("、") : "-";
-
-  document.getElementById("modalAttrs").innerHTML = `
-    <div class="attr-item">
-      <div class="attr-label">職業</div>
-      <div class="attr-value">${escapeHTML(g.career || "-")}</div>
-    </div>
-    <div class="attr-item">
-      <div class="attr-label">資質</div>
-      <div class="attr-value">${escapeHTML(g.aptitude || "-")}</div>
-    </div>
-    <div class="attr-item">
-      <div class="attr-label">推薦隊伍</div>
-      <div class="attr-value">${escapeHTML(teamDisplay)}</div>
-    </div>
-    <div class="attr-item">
-      <div class="attr-label">兵種</div>
-      <div class="attr-value">${escapeHTML(g.troop || "-")}</div>
-    </div>
-  `;
-
-  document.getElementById("modalSkills").innerHTML = buildSkillSections(g);
-  document.getElementById("detailModal").classList.add("open");
-  document.getElementById("detailModal").setAttribute("aria-hidden", "false");
+  document.getElementById('modalAttrs').innerHTML = `
+    <div class="attr-item"><div class="attr-label">職業</div><div class="attr-value">${escapeHTML(g.career||'-')}</div></div>
+    <div class="attr-item"><div class="attr-label">資質</div><div class="attr-value">${escapeHTML(g.aptitude||'-')}</div></div>
+    <div class="attr-item"><div class="attr-label">推薦隊伍</div><div class="attr-value">${escapeHTML(teamArr.length?teamArr.join('、'):'-')}</div></div>
+    <div class="attr-item"><div class="attr-label">兵種</div><div class="attr-value">${escapeHTML(g.troop||'-')}</div></div>`;
+  document.getElementById('modalSkills').innerHTML = buildSkillSections(g);
+  document.getElementById('detailModal').classList.add('open');
+  document.getElementById('detailModal').setAttribute('aria-hidden','false');
 }
 
-function closeModal() {
-  document.getElementById("detailModal").classList.remove("open");
-  document.getElementById("detailModal").setAttribute("aria-hidden", "true");
+function closeModal(){
+  document.getElementById('detailModal').classList.remove('open');
+  document.getElementById('detailModal').setAttribute('aria-hidden','true');
 }
 
-function applyFilters() {
+function applyFilters(){
   const q = searchQuery.trim().toLowerCase();
-
-  const filtered = generals.filter(g => {
-    const matchFaction = activeFaction === "all" || g.faction === activeFaction;
-    const matchForm = activeForm === "all" || g.form === activeForm;
-    const matchTroop = activeTroop === "all" || g.troop === activeTroop;
-    const matchCareer = activeCareer === "all" || g.career === activeCareer;
-    const teamStr = getTeamArray(g.team).join(" ");
-    const haystack = [g.name, g.prefix, g.troop, g.career, g.form, g.bio, teamStr].join(" ").toLowerCase();
-    const matchSearch = !q || haystack.includes(q);
-    return matchFaction && matchForm && matchTroop && matchCareer && matchSearch;
+  const filtered = generals.filter(g=>{
+    const matchFaction = activeFaction==='all'||g.faction===activeFaction;
+    const matchForm = activeForm==='all'||g.form===activeForm;
+    const matchTroop = activeTroop==='all'||g.troop===activeTroop;
+    const matchCareer = activeCareer==='all'||g.career===activeCareer;
+    const teamStr = getTeamArray(g.team).join(' ');
+    const haystack = [g.name,g.prefix,g.troop,g.career,g.form,g.bio,teamStr].join(' ').toLowerCase();
+    return matchFaction&&matchForm&&matchTroop&&matchCareer&&(!q||haystack.includes(q));
   });
-
   renderCards(filtered);
 }
 
-function setChipState(selector, activeButton) {
-  document.querySelectorAll(selector).forEach(btn => {
-    const isActive = btn === activeButton;
-    btn.classList.toggle("active", isActive);
-    btn.setAttribute("aria-pressed", isActive ? "true" : "false");
+function setChipState(selector, activeButton){
+  document.querySelectorAll(selector).forEach(btn=>{
+    const isActive = btn===activeButton;
+    btn.classList.toggle('active',isActive);
+    btn.setAttribute('aria-pressed',isActive?'true':'false');
   });
 }
 
-function handleChipClick(e) {
-  const btn = e.target.closest(".filter-chip");
-  if (!btn) return;
-  if (btn.dataset.faction !== undefined) { activeFaction = btn.dataset.faction; setChipState("[data-faction]", btn); }
-  if (btn.dataset.form !== undefined) { activeForm = btn.dataset.form; setChipState("[data-form]", btn); }
-  if (btn.dataset.troop !== undefined) { activeTroop = btn.dataset.troop; setChipState("[data-troop]", btn); }
-  if (btn.dataset.career !== undefined) { activeCareer = btn.dataset.career; setChipState("[data-career]", btn); }
+function handleChipClick(e){
+  const btn = e.target.closest('.filter-chip');
+  if(!btn) return;
+  if(btn.dataset.faction!==undefined){ activeFaction=btn.dataset.faction; setChipState('[data-faction]',btn); }
+  if(btn.dataset.form!==undefined){ activeForm=btn.dataset.form; setChipState('[data-form]',btn); }
+  if(btn.dataset.troop!==undefined){ activeTroop=btn.dataset.troop; setChipState('[data-troop]',btn); }
+  if(btn.dataset.career!==undefined){ activeCareer=btn.dataset.career; setChipState('[data-career]',btn); }
   applyFilters();
 }
 
-function initTheme() {
-  const savedTheme = localStorage.getItem("zsg-theme");
-  if (savedTheme === "light" || savedTheme === "dark") {
-    document.documentElement.dataset.theme = savedTheme;
-  }
+function initTheme(){
+  const t = localStorage.getItem('zsg-theme');
+  if(t==='light'||t==='dark') document.documentElement.dataset.theme=t;
+}
+function toggleTheme(){
+  const next = document.documentElement.dataset.theme==='dark'?'light':'dark';
+  document.documentElement.dataset.theme=next;
+  localStorage.setItem('zsg-theme',next);
 }
 
-function toggleTheme() {
-  const html = document.documentElement;
-  const nextTheme = html.dataset.theme === "dark" ? "light" : "dark";
-  html.dataset.theme = nextTheme;
-  localStorage.setItem("zsg-theme", nextTheme);
-}
-
-function initApp() {
-  if (typeof generals === "undefined" || !Array.isArray(generals)) {
-    console.error("❌ generals-data.js 載入失敗！");
-    return;
+function initApp(){
+  if(typeof generals==='undefined'||!Array.isArray(generals)){
+    console.error('❌ generals-data.js 載入失敗！'); return;
   }
   initTheme();
   renderDynamicChips();
   applyFilters();
 }
 
-document.addEventListener("DOMContentLoaded", initApp);
-document.getElementById("searchInput").addEventListener("input", e => { searchQuery = e.target.value; applyFilters(); });
-document.getElementById("factionChips").addEventListener("click", handleChipClick);
-document.getElementById("formChips").addEventListener("click", handleChipClick);
-document.getElementById("troopChips").addEventListener("click", handleChipClick);
-document.getElementById("careerChips").addEventListener("click", handleChipClick);
+document.addEventListener('DOMContentLoaded', initApp);
 
-document.getElementById("generalGrid").addEventListener("click", e => {
-  const card = e.target.closest(".general-card");
-  if (card) openModal(card.dataset.id);
+// 防抖搜尋：停打字 150ms 後才執行
+document.getElementById('searchInput').addEventListener(
+  'input',
+  debounce(e=>{ searchQuery=e.target.value; applyFilters(); }, 150)
+);
+
+document.getElementById('factionChips').addEventListener('click',handleChipClick);
+document.getElementById('formChips').addEventListener('click',handleChipClick);
+document.getElementById('troopChips').addEventListener('click',handleChipClick);
+document.getElementById('careerChips').addEventListener('click',handleChipClick);
+
+document.getElementById('generalGrid').addEventListener('click',e=>{
+  const card=e.target.closest('.general-card');
+  if(card) openModal(card.dataset.id);
 });
-
-document.getElementById("generalGrid").addEventListener("keydown", e => {
-  const card = e.target.closest(".general-card");
-  if (!card) return;
-  if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openModal(card.dataset.id); }
+document.getElementById('generalGrid').addEventListener('keydown',e=>{
+  const card=e.target.closest('.general-card');
+  if(!card) return;
+  if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openModal(card.dataset.id); }
 });
-
-document.getElementById("modalClose").addEventListener("click", closeModal);
-document.getElementById("detailModal").addEventListener("click", e => { if (e.target.id === "detailModal") closeModal(); });
-document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
-document.getElementById("themeToggle").addEventListener("click", toggleTheme);
+document.getElementById('modalClose').addEventListener('click',closeModal);
+document.getElementById('detailModal').addEventListener('click',e=>{ if(e.target.id==='detailModal') closeModal(); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
+document.getElementById('themeToggle').addEventListener('click',toggleTheme);
 </script>
 </body>
 </html>
