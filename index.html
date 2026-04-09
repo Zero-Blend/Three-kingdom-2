@@ -16,7 +16,10 @@
   --text-base:clamp(1rem,0.95rem + 0.25vw,1.125rem);
   --text-lg:clamp(1.125rem,1rem + 0.75vw,1.5rem);
   --text-xl:clamp(1.5rem,1.2rem + 1.25vw,2.25rem);
-  --radius-full:9999px;
+  --space-1:0.25rem; --space-2:0.5rem; --space-3:0.75rem;
+  --space-4:1rem; --space-6:1.5rem; --space-8:2rem;
+  --radius-sm:0.375rem; --radius-md:0.5rem; --radius-lg:0.75rem;
+  --radius-xl:1rem; --radius-full:9999px;
   --transition:180ms cubic-bezier(0.16,1,0.3,1);
 }
 [data-theme="dark"]{
@@ -57,6 +60,7 @@ header{
   font-weight:700;
   letter-spacing:0.05em;
   text-shadow:0 0 15px var(--gold-glow);
+  flex-shrink:0;
 }
 .logo svg{width:32px;height:32px;flex-shrink:0;}
 .search-wrap{flex:1;position:relative;}
@@ -88,11 +92,10 @@ main{padding:16px;max-width:1280px;margin:0 auto;}
   font-family:var(--font-display);
   font-size:1.85rem;
   color:var(--gold);
-  margin-bottom:20px;
+  margin-bottom:16px;
   text-shadow:0 0 20px var(--gold-glow);
 }
 
-/* 統一的膠囊按鈕樣式 */
 .chips{
   display:flex;
   flex-wrap:wrap;
@@ -100,13 +103,12 @@ main{padding:16px;max-width:1280px;margin:0 auto;}
   margin-bottom:20px;
 }
 .filter-chip{
-  padding:10px 20px;
-  border-radius:var(--radius-full);
+  padding:10px 22px;
+  border-radius:9999px;
   border:1px solid var(--border);
   background:#1a170f;
   font-size:0.98rem;
   white-space:nowrap;
-  transition:all var(--transition);
 }
 .filter-chip.active{
   background:var(--gold);
@@ -115,7 +117,24 @@ main{padding:16px;max-width:1280px;margin:0 auto;}
   box-shadow:0 0 18px var(--gold-glow);
 }
 
-/* 卡片 */
+.filters{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-bottom:24px;
+}
+.filter-group{
+  background:#1a170f;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:14px 16px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:1rem;
+}
+.filter-group label{color:var(--text-muted);}
+
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fill, minmax(168px, 1fr));
@@ -133,12 +152,14 @@ main{padding:16px;max-width:1280px;margin:0 auto;}
   transform:translateY(-6px);
   border-color:var(--gold);
 }
+
 .rarity-bar{height:5px;}
 .rarity-bar.five-star{background:linear-gradient(90deg,#f4a261,#e76f51);}
 .rarity-bar.hou{background:linear-gradient(90deg,#c44569,#9b59b6);}
 
 .card-art{height:195px;overflow:hidden;}
 .card-art img{width:100%;height:100%;object-fit:cover;}
+
 .card-body{padding:14px;}
 .card-name{
   font-family:var(--font-display);
@@ -165,7 +186,7 @@ main{padding:16px;max-width:1280px;margin:0 auto;}
   font-size:1.1rem;
 }
 
-/* Modal 技能樣式 */
+/* Modal */
 .modal{
   position:fixed;inset:0;
   background:rgba(0,0,0,0.94);
@@ -185,6 +206,7 @@ main{padding:16px;max-width:1280px;margin:0 auto;}
 }
 .modal-content{padding:20px;}
 
+/* 技能區 - 官方風格優化 */
 .skill-group{margin-bottom:28px;}
 .skill-group-title{
   color:var(--gold);
@@ -201,16 +223,31 @@ main{padding:16px;max-width:1280px;margin:0 auto;}
   padding:18px;
   box-shadow:0 0 15px rgba(232,192,112,0.15);
 }
-.skill-item:hover{border-color:var(--gold); box-shadow:0 0 25px var(--gold-glow);}
-.skill-item.lord{border-color:#ffcc66; background:linear-gradient(180deg,#2a2418,var(--surface-2));}
+.skill-item:hover{
+  border-color:var(--gold);
+  box-shadow:0 0 25px var(--gold-glow);
+}
+.skill-item.lord{
+  border-color:#ffcc66;
+  background:linear-gradient(180deg,#2a2418,var(--surface-2));
+}
 
-.skill-top{display:flex; align-items:center; gap:14px; margin-bottom:12px;}
+.skill-top{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-bottom:12px;
+}
 .skill-icon{
-  width:52px; height:52px;
+  width:52px;
+  height:52px;
   background:linear-gradient(135deg,#e8c070,#d4a843);
   border-radius:12px;
-  display:flex; align-items:center; justify-content:center;
-  font-size:1.75rem; flex-shrink:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.75rem;
+  flex-shrink:0;
   box-shadow:0 0 14px rgba(232,192,112,0.5);
   border:1px solid rgba(255,255,255,0.25);
 }
@@ -229,6 +266,7 @@ main{padding:16px;max-width:1280px;margin:0 auto;}
   background:rgba(232,192,112,0.15);
   color:var(--gold);
   border:1px solid var(--gold);
+  white-space:nowrap;
 }
 .skill-meta{
   color:#e8c070;
@@ -267,8 +305,7 @@ main{padding:16px;max-width:1280px;margin:0 auto;}
     <h1>武將圖鑒</h1>
   </div>
 
-  <!-- 第一行：派系 -->
-  <div class="chips" id="factionChips">
+  <div class="chips">
     <button class="filter-chip active" data-faction="all">全部</button>
     <button class="filter-chip" data-faction="wei">魏</button>
     <button class="filter-chip" data-faction="shu">蜀</button>
@@ -276,16 +313,25 @@ main{padding:16px;max-width:1280px;margin:0 auto;}
     <button class="filter-chip" data-faction="qun">群</button>
   </div>
 
-  <!-- 第二行：形態、兵種、職業（改成膠囊按鈕） -->
-  <div class="chips" id="formChips">
-    <button class="filter-chip active" data-form="all">全部</button>
-    <button class="filter-chip" data-form="五星">五星</button>
-    <button class="filter-chip" data-form="拜將">拜將</button>
-    <button class="filter-chip" data-form="封侯">封侯</button>
-  </div>
-
-  <div class="chips" id="troopChips"></div>
-  <div class="chips" id="careerChips"></div>
+  <section class="filters">
+    <div class="filter-group">
+      <span>形態</span>
+      <select id="formFilter">
+        <option value="all">全部</option>
+        <option value="五星">五星</option>
+        <option value="拜將">拜將</option>
+        <option value="封侯">封侯</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <span>兵種</span>
+      <select id="troopFilter"><option value="all">全部</option></select>
+    </div>
+    <div class="filter-group">
+      <span>職業</span>
+      <select id="careerFilter"><option value="all">全部</option></select>
+    </div>
+  </section>
 
   <section class="grid" id="generalGrid"></section>
   <div class="no-results" id="noResults">🔍 目前沒有符合條件的武將</div>
@@ -314,7 +360,13 @@ main{padding:16px;max-width:1280px;margin:0 auto;}
 <script src="hero/generals-data.js"></script>
 <script>
 // ====================== 全局變數 ======================
-const factionMap = { all: "全部", wei: "魏", shu: "蜀", wu: "吳", qun: "群" };
+const factionMap = {
+  all: { label: "全部" },
+  wei: { label: "魏" },
+  shu: { label: "蜀" },
+  wu: { label: "吳" },
+  qun: { label: "群" }
+};
 
 let activeFaction = "all";
 let activeForm = "all";
@@ -331,39 +383,10 @@ function uniqueValues(key) {
   return [...new Set(generals.map(g => g[key]).filter(Boolean))];
 }
 
-function createChipGroup(containerId, values, dataAttr, activeValue) {
-  const container = document.getElementById(containerId);
-  container.innerHTML = '';
-
-  // 加入「全部」
-  const allBtn = document.createElement('button');
-  allBtn.className = `filter-chip ${activeValue === 'all' ? 'active' : ''}`;
-  allBtn.textContent = '全部';
-  allBtn.dataset[dataAttr] = 'all';
-  container.appendChild(allBtn);
-
-  values.forEach(v => {
-    const btn = document.createElement('button');
-    btn.className = `filter-chip ${v === activeValue ? 'active' : ''}`;
-    btn.textContent = v;
-    btn.dataset[dataAttr] = v;
-    container.appendChild(btn);
-  });
-
-  // 綁定點擊事件
-  container.querySelectorAll('.filter-chip').forEach(btn => {
-    btn.addEventListener('click', () => {
-      container.querySelectorAll('.filter-chip').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      
-      if (dataAttr === 'faction') activeFaction = btn.dataset.faction;
-      if (dataAttr === 'form') activeForm = btn.dataset.form;
-      if (dataAttr === 'troop') activeTroop = btn.dataset.troop;
-      if (dataAttr === 'career') activeCareer = btn.dataset.career;
-      
-      applyFilters();
-    });
-  });
+function fillSelectOptions(selectId, values) {
+  const select = document.getElementById(selectId);
+  select.innerHTML = `<option value="all">全部</option>` + 
+    values.map(v => `<option value="${v}">${v}</option>`).join("");
 }
 
 // ====================== 渲染卡片 ======================
@@ -387,7 +410,7 @@ function renderCards(list) {
       <div class="card-body">
         <div class="card-name">${getDisplayName(g.name)}</div>
         <div class="card-tags">
-          <span class="tag">${factionMap[g.faction] || g.faction}</span>
+          <span class="tag">${factionMap[g.faction]?.label || g.faction}</span>
           <span class="tag">${g.form}</span>
           <span class="tag">${g.troop}</span>
           <span class="tag">${g.career}</span>
@@ -401,7 +424,7 @@ function renderCards(list) {
   `).join("");
 }
 
-// ====================== 技能渲染 ======================
+// ====================== 技能渲染（官方風格） ======================
 function renderSkillItem(skill, isLord = false) {
   if (!skill) return '';
   const lordClass = isLord ? ' lord' : '';
@@ -428,20 +451,6 @@ function renderSkillItem(skill, isLord = false) {
   `;
 }
 
-function buildSkillSections(g) {
-  let html = '';
-  if (g.form === "封侯" && g.skills?.lord) {
-    html += renderSkillGroup("主公技", [g.skills.lord], true);
-  }
-  if (g.skills?.active) {
-    html += renderSkillGroup("主動技", [g.skills.active]);
-  }
-  if (g.skills?.passives?.length) {
-    html += renderSkillGroup("被動技", g.skills.passives);
-  }
-  return html;
-}
-
 function renderSkillGroup(title, items, isLordGroup = false) {
   if (!items || !items.length) return '';
   return `
@@ -454,12 +463,32 @@ function renderSkillGroup(title, items, isLordGroup = false) {
   `;
 }
 
+function buildSkillSections(g) {
+  const groups = [];
+  if (g.form === "封侯" && g.skills?.lord) {
+    groups.push(renderSkillGroup("主公技", [g.skills.lord], true));
+  }
+  if (g.skills?.active) {
+    groups.push(renderSkillGroup("主動技", [g.skills.active]));
+  }
+  if (g.skills?.passives?.length) {
+    groups.push(renderSkillGroup("被動技", g.skills.passives));
+  }
+  if (g.form === "拜將" && g.skills?.strategy?.length) {
+    groups.push(renderSkillGroup("將略技", g.skills.strategy));
+  }
+  if (g.form === "拜將" && g.skills?.followers?.length) {
+    groups.push(renderSkillGroup("隨從技能", g.skills.followers));
+  }
+  return groups.join("");
+}
+
 // ====================== Modal ======================
 function openModal(id) {
   const g = generals.find(item => item.id === id);
   if (!g) return;
 
-  document.getElementById("modalFaction").textContent = `${factionMap[g.faction] || g.faction}｜${g.form}`;
+  document.getElementById("modalFaction").textContent = `${factionMap[g.faction]?.label || g.faction}｜${g.form}`;
   document.getElementById("modalTitle").textContent = getDisplayName(g.name);
 
   document.getElementById("modalAttrs").innerHTML = `
@@ -510,13 +539,8 @@ function initApp() {
     console.error("❌ generals-data.js 載入失敗！");
     return;
   }
-
-  // 建立各個膠囊群組
-  createChipGroup("factionChips", [], "faction", "all");   // 派系已在 HTML 寫好
-  createChipGroup("formChips", ["五星","拜將","封侯"], "form", "all");
-  createChipGroup("troopChips", uniqueValues("troop"), "troop", "all");
-  createChipGroup("careerChips", uniqueValues("career"), "career", "all");
-
+  fillSelectOptions("troopFilter", uniqueValues("troop"));
+  fillSelectOptions("careerFilter", uniqueValues("career"));
   applyFilters();
 }
 
@@ -527,6 +551,19 @@ document.getElementById("searchInput").addEventListener("input", e => {
   searchQuery = e.target.value;
   applyFilters();
 });
+
+document.querySelectorAll(".filter-chip").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".filter-chip").forEach(el => el.classList.remove("active"));
+    btn.classList.add("active");
+    activeFaction = btn.dataset.faction;
+    applyFilters();
+  });
+});
+
+document.getElementById("formFilter").addEventListener("change", e => { activeForm = e.target.value; applyFilters(); });
+document.getElementById("troopFilter").addEventListener("change", e => { activeTroop = e.target.value; applyFilters(); });
+document.getElementById("careerFilter").addEventListener("change", e => { activeCareer = e.target.value; applyFilters(); });
 
 document.getElementById("generalGrid").addEventListener("click", e => {
   const card = e.target.closest(".general-card");
