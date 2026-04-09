@@ -8,7 +8,7 @@ const generals = [
     aptitude: "15",
     prefix: "天命",
     troop: "戎車",
-    image: "heroimage/Tianmingcaocao.png",
+    image: "heroimage/Tianmingcaocao.jpg",
     bio: "魏天命核心輸出。",
     skills: {
       lord: {
