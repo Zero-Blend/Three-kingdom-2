@@ -82,21 +82,25 @@ header{
   font-size:1.3rem;
 }
 
-main{padding:16px;max-width:1280px;margin:0 auto;}
+main{
+  max-width:1280px;
+  margin:0 auto;
+  padding:16px;
+}
 
 .hero h1{
   font-family:var(--font-display);
   font-size:1.85rem;
   color:var(--gold);
-  margin-bottom:20px;
+  margin-bottom:24px;
   text-shadow:0 0 20px var(--gold-glow);
 }
 
-/* 統一的膠囊按鈕樣式 */
+/* 統一膠囊按鈕 */
 .chips{
   display:flex;
   flex-wrap:wrap;
-  gap:8px;
+  gap:10px;
   margin-bottom:20px;
 }
 .filter-chip{
@@ -115,11 +119,21 @@ main{padding:16px;max-width:1280px;margin:0 auto;}
   box-shadow:0 0 18px var(--gold-glow);
 }
 
-/* 卡片 */
+/* 電腦版優化：讓篩選區更整齊 */
+@media (min-width: 900px) {
+  .chips {
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    margin-bottom: 28px;
+  }
+}
+
+/* 卡片樣式 */
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fill, minmax(168px, 1fr));
-  gap:14px;
+  grid-template-columns:repeat(auto-fill, minmax(180px, 1fr));
+  gap:16px;
 }
 .general-card{
   background:var(--surface-2);
@@ -137,7 +151,7 @@ main{padding:16px;max-width:1280px;margin:0 auto;}
 .rarity-bar.five-star{background:linear-gradient(90deg,#f4a261,#e76f51);}
 .rarity-bar.hou{background:linear-gradient(90deg,#c44569,#9b59b6);}
 
-.card-art{height:195px;overflow:hidden;}
+.card-art{height:200px;overflow:hidden;}
 .card-art img{width:100%;height:100%;object-fit:cover;}
 .card-body{padding:14px;}
 .card-name{
@@ -165,7 +179,7 @@ main{padding:16px;max-width:1280px;margin:0 auto;}
   font-size:1.1rem;
 }
 
-/* Modal 技能樣式 */
+/* Modal */
 .modal{
   position:fixed;inset:0;
   background:rgba(0,0,0,0.94);
@@ -267,7 +281,7 @@ main{padding:16px;max-width:1280px;margin:0 auto;}
     <h1>武將圖鑒</h1>
   </div>
 
-  <!-- 第一行：派系 -->
+  <!-- 派系 -->
   <div class="chips" id="factionChips">
     <button class="filter-chip active" data-faction="all">全部</button>
     <button class="filter-chip" data-faction="wei">魏</button>
@@ -276,7 +290,7 @@ main{padding:16px;max-width:1280px;margin:0 auto;}
     <button class="filter-chip" data-faction="qun">群</button>
   </div>
 
-  <!-- 第二行：形態、兵種、職業（改成膠囊按鈕） -->
+  <!-- 形態 -->
   <div class="chips" id="formChips">
     <button class="filter-chip active" data-form="all">全部</button>
     <button class="filter-chip" data-form="五星">五星</button>
@@ -284,6 +298,7 @@ main{padding:16px;max-width:1280px;margin:0 auto;}
     <button class="filter-chip" data-form="封侯">封侯</button>
   </div>
 
+  <!-- 兵種與職業會在 JS 中動態生成 -->
   <div class="chips" id="troopChips"></div>
   <div class="chips" id="careerChips"></div>
 
@@ -331,36 +346,36 @@ function uniqueValues(key) {
   return [...new Set(generals.map(g => g[key]).filter(Boolean))];
 }
 
-function createChipGroup(containerId, values, dataAttr, activeValue) {
+function createChipGroup(containerId, values, dataAttr, defaultActive = "all") {
   const container = document.getElementById(containerId);
   container.innerHTML = '';
 
-  // 加入「全部」
+  // 全部按鈕
   const allBtn = document.createElement('button');
-  allBtn.className = `filter-chip ${activeValue === 'all' ? 'active' : ''}`;
+  allBtn.className = `filter-chip ${defaultActive === 'all' ? 'active' : ''}`;
   allBtn.textContent = '全部';
   allBtn.dataset[dataAttr] = 'all';
   container.appendChild(allBtn);
 
   values.forEach(v => {
     const btn = document.createElement('button');
-    btn.className = `filter-chip ${v === activeValue ? 'active' : ''}`;
+    btn.className = 'filter-chip';
     btn.textContent = v;
     btn.dataset[dataAttr] = v;
     container.appendChild(btn);
   });
 
-  // 綁定點擊事件
+  // 點擊事件
   container.querySelectorAll('.filter-chip').forEach(btn => {
     btn.addEventListener('click', () => {
       container.querySelectorAll('.filter-chip').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      
+
       if (dataAttr === 'faction') activeFaction = btn.dataset.faction;
       if (dataAttr === 'form') activeForm = btn.dataset.form;
       if (dataAttr === 'troop') activeTroop = btn.dataset.troop;
       if (dataAttr === 'career') activeCareer = btn.dataset.career;
-      
+
       applyFilters();
     });
   });
@@ -374,106 +389,3 @@ function renderCards(list) {
   if (!list.length) {
     grid.innerHTML = "";
     noRes.style.display = "block";
-    return;
-  }
-
-  noRes.style.display = "none";
-  grid.innerHTML = list.map(g => `
-    <article class="general-card" data-id="${g.id}" role="listitem" tabindex="0">
-      <div class="rarity-bar ${g.form === '五星' ? 'five-star' : g.form === '封侯' ? 'hou' : ''}"></div>
-      <div class="card-art">
-        ${g.image ? `<img src="${g.image}" alt="${getDisplayName(g.name)}">` : "🛡️"}
-      </div>
-      <div class="card-body">
-        <div class="card-name">${getDisplayName(g.name)}</div>
-        <div class="card-tags">
-          <span class="tag">${factionMap[g.faction] || g.faction}</span>
-          <span class="tag">${g.form}</span>
-          <span class="tag">${g.troop}</span>
-          <span class="tag">${g.career}</span>
-        </div>
-        <div class="card-meta">
-          <span class="tag">${g.prefix || '無'}</span>
-        </div>
-        <div class="card-desc">${g.bio || ''}</div>
-      </div>
-    </article>
-  `).join("");
-}
-
-// ====================== 技能渲染 ======================
-function renderSkillItem(skill, isLord = false) {
-  if (!skill) return '';
-  const lordClass = isLord ? ' lord' : '';
-  let icon = '⚔️';
-  if (isLord) icon = '👑';
-  else if (skill.type?.includes('主動')) icon = '🔥';
-  else if (skill.type?.includes('被動')) icon = '🛡️';
-
-  return `
-    <div class="skill-item${lordClass}">
-      <div class="skill-top">
-        <div class="skill-icon">${icon}</div>
-        <div style="flex:1">
-          <div class="skill-name">${skill.name}</div>
-          <div class="skill-type">${skill.type || "技能"}</div>
-        </div>
-      </div>
-      ${(skill.cost || skill.cooldown) ? `
-      <div class="skill-meta">
-        消耗：${skill.cost || '-'}　　冷卻：${skill.cooldown || '-'}
-      </div>` : ''}
-      <div class="skill-desc">${skill.desc || ''}</div>
-    </div>
-  `;
-}
-
-function buildSkillSections(g) {
-  let html = '';
-  if (g.form === "封侯" && g.skills?.lord) {
-    html += renderSkillGroup("主公技", [g.skills.lord], true);
-  }
-  if (g.skills?.active) {
-    html += renderSkillGroup("主動技", [g.skills.active]);
-  }
-  if (g.skills?.passives?.length) {
-    html += renderSkillGroup("被動技", g.skills.passives);
-  }
-  return html;
-}
-
-function renderSkillGroup(title, items, isLordGroup = false) {
-  if (!items || !items.length) return '';
-  return `
-    <section class="skill-group">
-      <div class="skill-group-title">${title}</div>
-      <div class="skill-list">
-        ${items.map(item => renderSkillItem(item, isLordGroup)).join("")}
-      </div>
-    </section>
-  `;
-}
-
-// ====================== Modal ======================
-function openModal(id) {
-  const g = generals.find(item => item.id === id);
-  if (!g) return;
-
-  document.getElementById("modalFaction").textContent = `${factionMap[g.faction] || g.faction}｜${g.form}`;
-  document.getElementById("modalTitle").textContent = getDisplayName(g.name);
-
-  document.getElementById("modalAttrs").innerHTML = `
-    <div style="background:#1f1b14;border:1px solid var(--border);border-radius:12px;padding:14px;">
-      <div style="color:var(--text-muted);font-size:0.9rem;">職業</div>
-      <div style="font-weight:700;">${g.career || "-"}</div>
-    </div>
-    <div style="background:#1f1b14;border:1px solid var(--border);border-radius:12px;padding:14px;">
-      <div style="color:var(--text-muted);font-size:0.9rem;">資質</div>
-      <div style="font-weight:700;">${g.aptitude || "-"}</div>
-    </div>
-    <div style="background:#1f1b14;border:1px solid var(--border);border-radius:12px;padding:14px;">
-      <div style="color:var(--text-muted);font-size:0.9rem;">前綴</div>
-      <div style="font-weight:700;">${g.prefix || "-"}</div>
-    </div>
-    <div style="background:#1f1b14;border:1px solid var(--border);border-radius:12px;padding:14px;">
-      <div style="color:var(--text-muted);font-size:0.9rem;">兵種</
