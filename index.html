@@ -302,7 +302,6 @@ main{
   background:linear-gradient(90deg,#c44569,#9b59b6);
 }
 
-/* ── card-art 容器加 relative 以容納 Badge ── */
 .card-art{
   height:195px;
   overflow:hidden;
@@ -330,28 +329,13 @@ main{
   padding:3px 10px;
   border-radius:9999px;
   letter-spacing:0.04em;
-  backdrop-filter:blur(6px);
+  backdrop-filter:blur(8px);
   pointer-events:none;
   white-space:nowrap;
-  box-shadow:0 2px 8px rgba(0,0,0,0.45);
-}
-
-.form-badge.hou{
-  background:linear-gradient(135deg,rgba(196,69,105,0.88),rgba(155,89,182,0.88));
+  background:rgba(0,0,0,0.45);
   color:#fff;
-  border:1px solid rgba(255,255,255,0.22);
-}
-
-.form-badge.bai{
-  background:linear-gradient(135deg,rgba(232,192,112,0.90),rgba(212,168,67,0.90));
-  color:#1a1200;
-  border:1px solid rgba(255,255,255,0.22);
-}
-
-.form-badge.five{
-  background:linear-gradient(135deg,rgba(244,162,97,0.88),rgba(231,111,81,0.88));
-  color:#fff;
-  border:1px solid rgba(255,255,255,0.22);
+  border:1px solid rgba(255,255,255,0.18);
+  box-shadow:0 2px 8px rgba(0,0,0,0.35);
 }
 
 .card-body{
@@ -788,7 +772,6 @@ main{
 <script src="hero/data-qun.js"></script>
 <script src="hero/generals-data.js"></script>
 <script>
-// 自動顯示今天日期在 Badge
 (function(){
   const d = new Date();
   const y = d.getFullYear();
@@ -805,7 +788,6 @@ const factionMap = {
   qun: { label: "群" }
 };
 
-// 形態 Badge 樣式映射
 function getFormBadgeClass(form) {
   if (form === "封侯") return "hou";
   if (form === "拜將") return "bai";
