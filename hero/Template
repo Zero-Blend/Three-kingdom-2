@@ -1,0 +1,32 @@
+// 武將名稱
+generals_data.push({
+  id: 3,                          // ← 每個武將的 id 不能重複
+  name: "武將名稱",
+  faction: "wei",                 // wei / shu / wu / qun
+  form: "五星",                   // 五星 / 拜將 / 封侯
+  career: "職業",
+  aptitude: "14",
+  prefix: "前綴",
+  troop: "兵種",
+  image: "heroimage/xxx.png",
+  bio: "簡介",
+  skills: {
+    lord: null,                   // 封侯才有，否則填 null
+    active: {
+      name: "技能名",
+      type: "主動技",
+      cost: "消耗",
+      cooldown: "冷卻",
+      desc: `技能描述`
+    },
+    passives: [
+      {
+        name: "被動技名",
+        type: "被動",
+        desc: `技能描述`
+      }
+    ],
+    strategy: [],                 // 拜將將略技，無則留空陣列
+    followers: []                 // 拜將隨從技，無則留空陣列
+  }
+});
