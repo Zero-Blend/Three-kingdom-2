@@ -58,7 +58,7 @@ const generals = [
   },
 {
   id: 2,
-  name: "普通·疾風司馬懿",
+  name: "疾風·疾風司馬懿",
   faction: "wei",
   form: "普通",
   career: "智將型",
@@ -66,7 +66,7 @@ const generals = [
   prefix: "疾風",
   troop: "炎爆弓騎",
   image: "heroimage/JiFengSimayi.png",
-  bio: "魏國普通形態法術輸出武將，兼具中毒、召喚死士、陰陽切換與移動增傷機制。",
+  bio: "魏弓騎法術輸出武將，兼具中毒、召喚死士、陰陽切換與移動增傷機制。",
   skills: {
     lord: null,
     active: {
