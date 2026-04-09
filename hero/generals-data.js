@@ -1,5 +1,5 @@
 const generals = [
-  {
+  
     id: 1,
     name: "封侯·天命曹操",
     faction: "wei",
@@ -55,7 +55,7 @@ const generals = [
       strategy: [],
       followers: []
     }
-  }
+  },
 {
   id: 2,
   name: "普通·疾風司馬懿",
