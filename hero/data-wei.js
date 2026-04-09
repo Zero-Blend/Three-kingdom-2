@@ -212,7 +212,7 @@ generals_wei.push({
 // ── 圖南·甄姬 ──
 generals_wei.push({
   id: 4,
-  name: "圖南·甄姬",
+  name: "圖南甄姬",
   faction: "wei",
   form: "五星",
   career: "策士型",
