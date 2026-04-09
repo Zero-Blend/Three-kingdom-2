@@ -1,10 +1,16 @@
 // =============================================
-// 真三國大戰２ 武將資料 主 Loader
-// 此檔僅負責建立空陣列，實際資料請到 hero/data/ 對應資料夾新增
+// 真三國大戰2 ── 武將資料整合 Loader
+// 此檔只負責合併，不放任何武將資料
+// 新增武將請到對應陣營檔案：
+//   魏國 → hero/data-wei.js
+//   蜀國 → hero/data-shu.js
+//   吳國 → hero/data-wu.js
+//   群雄 → hero/data-qun.js
 // =============================================
 
-const generals_data = [];
-
-// ← 各武將檔案會透過 index.html 的 <script> 依序載入，並將資料 push 進來
-// ← 載入完所有檔案後，會在 index.html 尾部執行：
-//    const generals = generals_data;
+const generals = [
+  ...generals_wei,
+  ...generals_shu,
+  ...generals_wu,
+  ...generals_qun
+];
