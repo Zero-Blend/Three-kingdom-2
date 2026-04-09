@@ -16,7 +16,7 @@ strategies.push({
   title: "魏盾騎陣容攻略",
   team: "魏盾騎",
   faction: "wei",
-  desc: "魏盾騎完整攻略，涵蓋陣容配置、盾牌機制與對位思路。",
+  desc: "魏盾騎完整攻略，涵蓋陣容配置、盾騎機制與對位思路。",
   url: "https://tieba.baidu.com/p/10552713400?fr=frs",
   source: "百度貼吧",
   date: "2026-03-12"
