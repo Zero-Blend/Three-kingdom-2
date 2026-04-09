@@ -16,7 +16,7 @@ generals_wei.push({
   prefix: "天命",
   troop: "戎車",
   image: "heroimage/Tianmingcaocao.png",
-  bio: "魏天命核心輸出。",
+  bio: "魏國最強法術核心，掌控戰場節奏，以天命之力號令三軍、集火制敵，越是逆境越能爆發無限潛力。",
   skills: {
     lord: {
       name: "究·UR集滅天之破",
