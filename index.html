@@ -560,6 +560,50 @@ main{
   white-space:pre-line;
 }
 
+/* ── 懸浮作者 Badge ── */
+.author-badge{
+  position:fixed;
+  bottom:20px;
+  right:16px;
+  z-index:50;
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:10px 14px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:0.82rem;
+  box-shadow:var(--shadow-card);
+  backdrop-filter:blur(8px);
+  transition:all var(--transition);
+  pointer-events:none;
+}
+
+.author-badge:hover{
+  border-color:var(--gold);
+  box-shadow:0 0 18px var(--gold-glow);
+}
+
+.badge-icon{
+  font-size:1.3rem;
+  line-height:1;
+}
+
+.badge-name{
+  color:var(--gold);
+  font-family:var(--font-display);
+  font-weight:700;
+  line-height:1.3;
+  text-shadow:0 0 8px var(--gold-glow);
+}
+
+.badge-date{
+  color:var(--text-muted);
+  font-size:0.76rem;
+  line-height:1.3;
+}
+
 @media (max-width:640px){
   header{
     padding:10px 12px;
@@ -600,6 +644,12 @@ main{
 
   .skill-name{
     font-size:1.12rem;
+  }
+
+  .author-badge{
+    bottom:12px;
+    right:12px;
+    padding:8px 12px;
   }
 }
 </style>
@@ -666,6 +716,15 @@ main{
   <div class="no-results" id="noResults">🔍 目前沒有符合條件的武將</div>
 </main>
 
+<!-- 懸浮作者 Badge -->
+<div class="author-badge" aria-label="網站作者資訊">
+  <div class="badge-icon">⚔️</div>
+  <div>
+    <div class="badge-name">無糖</div>
+    <div class="badge-date" id="badgeDate"></div>
+  </div>
+</div>
+
 <div class="modal" id="detailModal" aria-hidden="true">
   <div class="modal-panel">
     <div class="modal-content">
@@ -692,6 +751,15 @@ main{
 <script src="hero/data-qun.js"></script>
 <script src="hero/generals-data.js"></script>
 <script>
+// 自動顯示今天日期在 Badge
+(function(){
+  const d = new Date();
+  const y = d.getFullYear();
+  const m = String(d.getMonth()+1).padStart(2,'0');
+  const day = String(d.getDate()).padStart(2,'0');
+  document.getElementById('badgeDate').textContent = '更新 ' + y + '-' + m + '-' + day;
+})();
+
 const factionMap = {
   all: { label: "全部" },
   wei: { label: "魏" },
