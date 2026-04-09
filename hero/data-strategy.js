@@ -19,7 +19,14 @@ strategies.push({
   desc: "魏盾騎完整攻略，涵蓋陣容配置、盾牌機制與對位思路。",
   url: "https://tieba.baidu.com/p/10552713400?fr=frs",
   source: "百度貼吧",
-  date: "2026-03-12"
+  date: "2026-03-12",
+  generals: [
+    { name: "曹操", form: "拜將", prefix: "固守" },
+    { name: "鄧艾", form: "封侯", prefix: "屯田" },
+    { name: "曹仁", form: "封侯", prefix: "圖南" },
+    { name: "亿武文鼴", form: "五星", prefix: "" },
+    { name: "誓心龐德", form: "拜將", prefix: "" }
+  ]
 });
 
 strategies.push({
