@@ -271,7 +271,7 @@ generals_wei.push({
   prefix: "天命",
   team: ["魏天命"],
   troop: "戎車",
-  image: "heroimage/TianmingCaiwenJi.jpg",
+  image: "heroimage/TianmingCaiwenJi.png",
   bio: "魏天命守護者，以樂音滋養全隊法術吸血與策攻，以悲音在天命武將瀕死時逆轉戰局，護盾與抗性兼備，是天命陣容不可缺少的核心輔助。",
   skills: {
     lord: null,
