@@ -21,10 +21,10 @@ strategies.push({
   source: "百度貼吧",
   date: "2026-03-12",
   generals: [
-    { name: "曹操", form: "拜將", prefix: "固守" },
-    { name: "鄧艾", form: "封侯", prefix: "屯田" },
-    { name: "曹仁", form: "封侯", prefix: "圖南" },
-    { name: "亿武文鼴", form: "五星", prefix: "" },
+    { name: "圖南曹操", form: "拜將", prefix: "固守" },
+    { name: "屯田鄧艾", form: "封侯", prefix: "屯田" },
+    { name: "圖南曹仁", form: "封侯", prefix: "圖南" },
+    { name: "亟武文鴦", form: "五星", prefix: "" },
     { name: "誓心龐德", form: "拜將", prefix: "" }
   ]
 });
