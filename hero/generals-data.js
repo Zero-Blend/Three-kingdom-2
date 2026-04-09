@@ -58,7 +58,7 @@ const generals = [
   },
 {
   id: 2,
-  name: "疾風·疾風司馬懿",
+  name: "疾風司馬懿",
   faction: "wei",
   form: "普通",
   career: "智將型",
