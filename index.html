@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>真三國大戰2｜武將圖鑒</title>
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
@@ -19,294 +18,272 @@
   --text-xl:clamp(1.5rem,1.2rem + 1.25vw,2.25rem);
   --space-1:0.25rem; --space-2:0.5rem; --space-3:0.75rem;
   --space-4:1rem; --space-6:1.5rem; --space-8:2rem;
-  --space-10:2.5rem; --space-12:3rem;
   --radius-sm:0.375rem; --radius-md:0.5rem; --radius-lg:0.75rem;
   --radius-xl:1rem; --radius-full:9999px;
   --transition:180ms cubic-bezier(0.16,1,0.3,1);
 }
 [data-theme="dark"]{
-  --bg:#0d0c0a;
-  --surface:#161410;
-  --surface-2:#1e1b16;
-  --surface-3:#28241c;
-  --border:rgba(255,220,120,0.12);
-  --divider:rgba(255,220,120,0.08);
-  --text:#e8dfc8;
-  --text-muted:#9c9080;
-  --text-faint:#5a5448;
-  --gold:#d4a843;
-  --gold-glow:rgba(212,168,67,0.25);
-  --shadow-card:0 4px 24px rgba(0,0,0,0.5);
-  --shadow-glow:0 0 20px rgba(212,168,67,0.2);
+  --bg:#0a0906;
+  --surface:#12100c;
+  --surface-2:#1a170f;
+  --surface-3:#242015;
+  --border:rgba(232,192,112,0.18);
+  --text:#f0e6d2;
+  --text-muted:#a38b6b;
+  --gold:#e8c070;
+  --gold-glow:rgba(232,192,112,0.4);
+  --shadow-card:0 8px 32px rgba(0,0,0,0.75);
 }
-[data-theme="light"]{
-  --bg:#f5f0e8;
-  --surface:#faf6ee;
-  --surface-2:#ffffff;
-  --surface-3:#ede8dc;
-  --border:rgba(120,80,0,0.15);
-  --divider:rgba(120,80,0,0.1);
-  --text:#2c1f0a;
-  --text-muted:#7a6040;
-  --text-faint:#b8a080;
-  --gold:#a0720a;
-  --gold-glow:rgba(160,114,10,0.15);
-  --shadow-card:0 4px 20px rgba(80,40,0,0.15);
-  --shadow-glow:0 0 16px rgba(160,114,10,0.12);
-}
+
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;}
 body{
   font-family:var(--font-body);
-  font-size:var(--text-base);
-  color:var(--text);
   background:var(--bg);
+  color:var(--text);
   min-height:100dvh;
   line-height:1.6;
 }
-button,input,select{font:inherit;color:inherit;}
-button{cursor:pointer;background:none;border:none;}
-img{display:block;max-width:100%;height:auto;}
-:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:var(--radius-sm);}
-
 header{
   position:sticky;top:0;z-index:100;
-  background:var(--surface);
+  background:rgba(10,9,6,0.95);
+  backdrop-filter:blur(12px);
   border-bottom:1px solid var(--border);
-  padding:var(--space-3) var(--space-4);
-  display:flex;align-items:center;gap:var(--space-3);
+  padding:12px 16px;
+  display:flex;align-items:center;gap:12px;
 }
 .logo{
-  display:flex;align-items:center;gap:var(--space-2);
-  text-decoration:none;color:var(--gold);
-  font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;
-  letter-spacing:0.05em;text-shadow:0 0 12px var(--gold-glow);
+  display:flex;align-items:center;gap:8px;
+  text-decoration:none;
+  color:var(--gold);
+  font-family:var(--font-display);
+  font-size:1.35rem;
+  font-weight:700;
+  letter-spacing:0.05em;
+  text-shadow:0 0 15px var(--gold-glow);
   flex-shrink:0;
 }
-.logo svg{width:28px;height:28px;flex-shrink:0;}
-.search-wrap{flex:1;position:relative;min-width:0;}
+.logo svg{width:32px;height:32px;flex-shrink:0;}
+.search-wrap{flex:1;position:relative;}
 .search-wrap input{
   width:100%;
-  padding:var(--space-2) var(--space-3) var(--space-2) 2.4rem;
-  border-radius:var(--radius-full);
+  background:#1f1b14;
   border:1px solid var(--border);
-  background:var(--surface-3);
-  outline:none;
+  border-radius:9999px;
+  padding:12px 16px 12px 48px;
+  font-size:1rem;
+  color:var(--text);
 }
 .search-icon{
-  position:absolute;left:0.8rem;top:50%;transform:translateY(-50%);
+  position:absolute;left:18px;top:50%;transform:translateY(-50%);
+  font-size:1.25rem;
   opacity:0.7;
 }
 .theme-toggle{
-  width:2.6rem;height:2.6rem;border-radius:var(--radius-full);
-  border:1px solid var(--border);background:var(--surface-3);
+  width:42px;height:42px;
+  background:#1f1b14;
+  border:1px solid var(--border);
+  border-radius:50%;
+  font-size:1.3rem;
 }
-main{
-  max-width:1280px;
-  margin:0 auto;
-  padding:var(--space-6) var(--space-4) var(--space-12);
-}
-.hero{margin-bottom:var(--space-6);}
+
+main{padding:16px;max-width:1280px;margin:0 auto;}
+
 .hero h1{
   font-family:var(--font-display);
-  font-size:var(--text-xl);
+  font-size:1.85rem;
   color:var(--gold);
-  margin-bottom:var(--space-2);
+  margin-bottom:16px;
+  text-shadow:0 0 20px var(--gold-glow);
 }
+
 .chips{
-  display:flex;flex-wrap:wrap;gap:var(--space-2);
-  margin-bottom:var(--space-4);
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:20px;
 }
 .filter-chip{
-  padding:0.5rem 0.9rem;
-  border-radius:var(--radius-full);
+  padding:10px 22px;
+  border-radius:9999px;
   border:1px solid var(--border);
-  background:var(--surface);
+  background:#1a170f;
+  font-size:0.98rem;
+  white-space:nowrap;
 }
 .filter-chip.active{
+  background:var(--gold);
+  color:#111;
   border-color:var(--gold);
-  color:var(--gold);
-  box-shadow:var(--shadow-glow);
+  box-shadow:0 0 18px var(--gold-glow);
 }
+
 .filters{
-  display:flex;flex-wrap:wrap;gap:var(--space-3);
-  margin-bottom:var(--space-6);
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-bottom:24px;
 }
 .filter-group{
-  display:flex;align-items:center;gap:var(--space-2);
+  background:#1a170f;
   border:1px solid var(--border);
-  background:var(--surface);
-  border-radius:var(--radius-full);
-  padding:0.45rem 0.8rem;
+  border-radius:14px;
+  padding:14px 16px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:1rem;
 }
-.filter-group label{
-  color:var(--text-muted);
-  font-size:var(--text-sm);
-}
-.filter-group select{
-  background:transparent;
-  border:none;
-  outline:none;
-}
+.filter-group label{color:var(--text-muted);}
+
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(290px,1fr));
-  gap:var(--space-4);
+  grid-template-columns:repeat(auto-fill, minmax(168px, 1fr));
+  gap:14px;
 }
 .general-card{
-  background:linear-gradient(180deg,var(--surface-2),var(--surface));
+  background:var(--surface-2);
   border:1px solid var(--border);
-  border-radius:var(--radius-xl);
+  border-radius:18px;
   overflow:hidden;
   box-shadow:var(--shadow-card);
-  transition:transform var(--transition), border-color var(--transition);
+  transition:all var(--transition);
 }
 .general-card:hover{
-  transform:translateY(-3px);
-  border-color:rgba(212,168,67,0.35);
+  transform:translateY(-6px);
+  border-color:var(--gold);
 }
-/* 不同形態不同顏色條 */
-.rarity-bar{height:4px;background:linear-gradient(90deg,#8e44ad,#f1c40f);}
-.rarity-bar.five-star{background:linear-gradient(90deg,#f39c12,#f1c40f);}
-.rarity-bar.hou{background:linear-gradient(90deg,#9b59b6,#e74c3c);}
 
-.card-art{
-  height:150px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:3rem;
-  background:radial-gradient(circle at center, rgba(212,168,67,0.12), transparent 70%);
-  overflow:hidden;
-}
+.rarity-bar{height:5px;}
+.rarity-bar.five-star{background:linear-gradient(90deg,#f4a261,#e76f51);}
+.rarity-bar.hou{background:linear-gradient(90deg,#c44569,#9b59b6);}
+
+.card-art{height:195px;overflow:hidden;}
 .card-art img{width:100%;height:100%;object-fit:cover;}
-.card-body{padding:var(--space-4);}
+
+.card-body{padding:14px;}
 .card-name{
   font-family:var(--font-display);
-  font-size:var(--text-lg);
-  margin-bottom:var(--space-2);
+  font-size:1.18rem;
+  margin-bottom:8px;
+  line-height:1.3;
 }
-.card-tags,.card-meta{
-  display:flex;flex-wrap:wrap;gap:var(--space-2);
-  margin-bottom:var(--space-3);
+.card-tags{
+  display:flex;flex-wrap:wrap;gap:6px;
+  margin-bottom:10px;
 }
 .tag{
-  display:inline-flex;align-items:center;
-  padding:0.25rem 0.6rem;
-  border-radius:var(--radius-full);
-  font-size:var(--text-xs);
+  font-size:0.78rem;
+  padding:4px 10px;
+  border-radius:9999px;
+  background:#242015;
   border:1px solid var(--border);
-  background:var(--surface-3);
 }
-.card-desc{
-  color:var(--text-muted);
-  font-size:var(--text-sm);
-  display:-webkit-box;
-  -webkit-line-clamp:3;
-  -webkit-box-orient:vertical;
-  overflow:hidden;
-}
+
 .no-results{
-  display:none;
   text-align:center;
   color:var(--text-muted);
-  padding:var(--space-10) 0;
+  padding:80px 20px;
+  font-size:1.1rem;
 }
+
+/* Modal */
 .modal{
-  position:fixed;inset:0;z-index:1000;
+  position:fixed;inset:0;
+  background:rgba(0,0,0,0.94);
   display:none;align-items:center;justify-content:center;
-  background:rgba(0,0,0,0.72);
-  padding:var(--space-4);
+  padding:16px;
+  z-index:1000;
 }
 .modal.open{display:flex;}
 .modal-panel{
-  width:min(920px,100%);
-  max-height:90dvh;
+  width:100%;
+  max-width:540px;
+  max-height:94dvh;
   overflow:auto;
   background:var(--surface);
   border:1px solid var(--border);
-  border-radius:var(--radius-xl);
+  border-radius:20px;
 }
-.modal-content{padding:var(--space-6);}
-.modal-header{
-  display:flex;justify-content:space-between;align-items:flex-start;gap:var(--space-3);
-  margin-bottom:var(--space-4);
-}
-.modal-name{
-  font-family:var(--font-display);
-  font-size:var(--text-xl);
-  color:var(--gold);
-}
-.modal-faction{color:var(--text-muted);margin-bottom:var(--space-1);}
-.modal-close{
-  width:2.5rem;height:2.5rem;border-radius:var(--radius-full);
-  border:1px solid var(--border);background:var(--surface-3);
-}
-.section-title{
-  color:var(--gold);
-  font-family:var(--font-display);
-  margin-bottom:var(--space-3);
-}
-.attr-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
-  gap:var(--space-3);
-  margin-bottom:var(--space-6);
-}
-.attr-item{
-  background:var(--surface-2);
-  border:1px solid var(--border);
-  border-radius:var(--radius-lg);
-  padding:var(--space-3);
-}
-.attr-item .label{
-  color:var(--text-muted);
-  font-size:var(--text-sm);
-  margin-bottom:0.25rem;
-}
-.attr-item .value{font-weight:700;}
-.skill-group{margin-bottom:var(--space-5);}
+.modal-content{padding:20px;}
+
+/* 技能區 - 官方風格優化 */
+.skill-group{margin-bottom:28px;}
 .skill-group-title{
-  font-size:var(--text-base);
-  margin-bottom:var(--space-3);
+  color:var(--gold);
+  font-family:var(--font-display);
+  font-size:1.25rem;
+  margin-bottom:12px;
 }
-.skill-list{
-  display:grid;
-  gap:var(--space-3);
-}
+.skill-list{gap:14px;display:flex;flex-direction:column;}
+
 .skill-item{
   background:var(--surface-2);
-  border:1px solid var(--border);
-  border-radius:var(--radius-lg);
-  padding:var(--space-4);
+  border:1px solid rgba(232,192,112,0.3);
+  border-radius:16px;
+  padding:18px;
+  box-shadow:0 0 15px rgba(232,192,112,0.15);
 }
+.skill-item:hover{
+  border-color:var(--gold);
+  box-shadow:0 0 25px var(--gold-glow);
+}
+.skill-item.lord{
+  border-color:#ffcc66;
+  background:linear-gradient(180deg,#2a2418,var(--surface-2));
+}
+
 .skill-top{
-  display:flex;flex-wrap:wrap;gap:var(--space-2);
-  margin-bottom:var(--space-2);
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-bottom:12px;
 }
-.skill-name{font-weight:700;color:var(--gold);}
+.skill-icon{
+  width:52px;
+  height:52px;
+  background:linear-gradient(135deg,#e8c070,#d4a843);
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.75rem;
+  flex-shrink:0;
+  box-shadow:0 0 14px rgba(232,192,112,0.5);
+  border:1px solid rgba(255,255,255,0.25);
+}
+.skill-name{
+  font-family:var(--font-display);
+  font-size:1.28rem;
+  font-weight:700;
+  color:var(--gold);
+  text-shadow:0 0 10px var(--gold-glow);
+  flex:1;
+}
 .skill-type{
-  font-size:var(--text-xs);
-  color:var(--text-muted);
-  border:1px solid var(--border);
-  border-radius:var(--radius-full);
-  padding:0.15rem 0.5rem;
+  font-size:0.82rem;
+  padding:4px 14px;
+  border-radius:9999px;
+  background:rgba(232,192,112,0.15);
+  color:var(--gold);
+  border:1px solid var(--gold);
+  white-space:nowrap;
 }
 .skill-meta{
-  color:var(--text-muted);
-  font-size:var(--text-sm);
-  margin-bottom:var(--space-2);
+  color:#e8c070;
+  font-size:0.98rem;
+  margin-bottom:12px;
+  font-weight:500;
 }
 .skill-desc{
+  color:var(--text-muted);
+  font-size:0.96rem;
+  line-height:1.7;
   white-space:pre-line;
-  font-size:var(--text-sm);
-}
-@media (max-width:720px){
-  .filters{flex-direction:column;align-items:stretch;}
-  .filter-group{justify-content:space-between;border-radius:var(--radius-lg);}
-  .grid{grid-template-columns:repeat(auto-fill,minmax(260px,1fr));}
 }
 </style>
 </head>
 <body>
+
 <header>
   <a class="logo" href="#">
     <svg viewBox="0 0 28 28" fill="none" aria-label="真三國大戰2">
@@ -318,15 +295,15 @@ main{
   </a>
   <div class="search-wrap">
     <span class="search-icon">🔍</span>
-    <input id="searchInput" type="text" placeholder="搜尋武將名稱、前綴、兵種、職業">
+    <input id="searchInput" type="text" placeholder="搜尋武將名稱、前綴">
   </div>
-  <button class="theme-toggle" id="themeToggle" aria-label="切換主題">🌓</button>
+  <button class="theme-toggle" id="themeToggle">🌓</button>
 </header>
 
 <main>
-  <section class="hero">
+  <div class="hero">
     <h1>武將圖鑒</h1>
-  </section>
+  </div>
 
   <div class="chips">
     <button class="filter-chip active" data-faction="all">全部</button>
@@ -338,7 +315,7 @@ main{
 
   <section class="filters">
     <div class="filter-group">
-      <label for="formFilter">形態</label>
+      <span>形態</span>
       <select id="formFilter">
         <option value="all">全部</option>
         <option value="五星">五星</option>
@@ -347,32 +324,34 @@ main{
       </select>
     </div>
     <div class="filter-group">
-      <label for="troopFilter">兵種</label>
+      <span>兵種</span>
       <select id="troopFilter"><option value="all">全部</option></select>
     </div>
     <div class="filter-group">
-      <label for="careerFilter">職業</label>
+      <span>職業</span>
       <select id="careerFilter"><option value="all">全部</option></select>
     </div>
   </section>
 
-  <section class="grid" id="generalGrid" role="list"></section>
-  <div class="no-results" id="noResults">🔍 找不到符合條件的武將</div>
+  <section class="grid" id="generalGrid"></section>
+  <div class="no-results" id="noResults">🔍 目前沒有符合條件的武將</div>
 </main>
 
-<div class="modal" id="detailModal" aria-hidden="true">
+<div class="modal" id="detailModal">
   <div class="modal-panel">
     <div class="modal-content">
-      <div class="modal-header">
+      <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:20px;">
         <div>
-          <div class="modal-faction" id="modalFaction"></div>
-          <div class="modal-name" id="modalTitle"></div>
+          <div id="modalFaction" style="color:#a38b6b;margin-bottom:6px;font-size:1.05rem;"></div>
+          <div id="modalTitle" style="font-size:1.65rem;color:var(--gold);font-family:var(--font-display);"></div>
         </div>
-        <button class="modal-close" id="modalClose" aria-label="關閉">✕</button>
+        <button id="modalClose" style="background:none;border:none;font-size:2rem;color:#888;padding:0 8px;">✕</button>
       </div>
-      <p class="section-title">卡片屬性</p>
-      <div class="attr-grid" id="modalAttrs"></div>
-      <p class="section-title">技能</p>
+
+      <p style="color:var(--gold);margin:20px 0 12px;font-size:1.1rem;">卡片屬性</p>
+      <div id="modalAttrs" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:30px;"></div>
+
+      <p style="color:var(--gold);margin:20px 0 12px;font-size:1.1rem;">技能</p>
       <div id="modalSkills"></div>
     </div>
   </div>
@@ -445,31 +424,40 @@ function renderCards(list) {
   `).join("");
 }
 
-// ====================== 技能渲染 ======================
-function renderSkillItem(skill) {
+// ====================== 技能渲染（官方風格） ======================
+function renderSkillItem(skill, isLord = false) {
   if (!skill) return '';
+  const lordClass = isLord ? ' lord' : '';
+  let icon = '⚔️';
+  if (isLord) icon = '👑';
+  else if (skill.type?.includes('主動')) icon = '🔥';
+  else if (skill.type?.includes('被動')) icon = '🛡️';
+
   return `
-    <div class="skill-item">
+    <div class="skill-item${lordClass}">
       <div class="skill-top">
-        <div class="skill-name">${skill.name}</div>
-        <div class="skill-type">${skill.type || "技能"}</div>
+        <div class="skill-icon">${icon}</div>
+        <div style="flex:1">
+          <div class="skill-name">${skill.name}</div>
+          <div class="skill-type">${skill.type || "技能"}</div>
+        </div>
       </div>
       ${(skill.cost || skill.cooldown) ? `
       <div class="skill-meta">
-        消耗：${skill.cost || '-'}　冷卻：${skill.cooldown || '-'}
+        消耗：${skill.cost || '-'}　　冷卻：${skill.cooldown || '-'}
       </div>` : ''}
       <div class="skill-desc">${skill.desc || ''}</div>
     </div>
   `;
 }
 
-function renderSkillGroup(title, items) {
+function renderSkillGroup(title, items, isLordGroup = false) {
   if (!items || !items.length) return '';
   return `
     <section class="skill-group">
       <div class="skill-group-title">${title}</div>
       <div class="skill-list">
-        ${items.map(renderSkillItem).join("")}
+        ${items.map(item => renderSkillItem(item, isLordGroup)).join("")}
       </div>
     </section>
   `;
@@ -477,28 +465,21 @@ function renderSkillGroup(title, items) {
 
 function buildSkillSections(g) {
   const groups = [];
-  
-  // 主公技（僅封侯）
   if (g.form === "封侯" && g.skills?.lord) {
-    groups.push(renderSkillGroup("主公技", [g.skills.lord]));
+    groups.push(renderSkillGroup("主公技", [g.skills.lord], true));
   }
-  // 主動技
   if (g.skills?.active) {
     groups.push(renderSkillGroup("主動技", [g.skills.active]));
   }
-  // 被動技
   if (g.skills?.passives?.length) {
     groups.push(renderSkillGroup("被動技", g.skills.passives));
   }
-  // 將略技（拜將）
   if (g.form === "拜將" && g.skills?.strategy?.length) {
     groups.push(renderSkillGroup("將略技", g.skills.strategy));
   }
-  // 隨從技能（拜將）
   if (g.form === "拜將" && g.skills?.followers?.length) {
     groups.push(renderSkillGroup("隨從技能", g.skills.followers));
   }
-
   return groups.join("");
 }
 
@@ -511,10 +492,22 @@ function openModal(id) {
   document.getElementById("modalTitle").textContent = getDisplayName(g.name);
 
   document.getElementById("modalAttrs").innerHTML = `
-    <div class="attr-item"><div class="label">職業</div><div class="value">${g.career || "-"}</div></div>
-    <div class="attr-item"><div class="label">資質</div><div class="value">${g.aptitude || "-"}</div></div>
-    <div class="attr-item"><div class="label">前綴</div><div class="value">${g.prefix || "-"}</div></div>
-    <div class="attr-item"><div class="label">兵種</div><div class="value">${g.troop || "-"}</div></div>
+    <div style="background:#1f1b14;border:1px solid var(--border);border-radius:12px;padding:14px;">
+      <div style="color:var(--text-muted);font-size:0.9rem;">職業</div>
+      <div style="font-weight:700;">${g.career || "-"}</div>
+    </div>
+    <div style="background:#1f1b14;border:1px solid var(--border);border-radius:12px;padding:14px;">
+      <div style="color:var(--text-muted);font-size:0.9rem;">資質</div>
+      <div style="font-weight:700;">${g.aptitude || "-"}</div>
+    </div>
+    <div style="background:#1f1b14;border:1px solid var(--border);border-radius:12px;padding:14px;">
+      <div style="color:var(--text-muted);font-size:0.9rem;">前綴</div>
+      <div style="font-weight:700;">${g.prefix || "-"}</div>
+    </div>
+    <div style="background:#1f1b14;border:1px solid var(--border);border-radius:12px;padding:14px;">
+      <div style="color:var(--text-muted);font-size:0.9rem;">兵種</div>
+      <div style="font-weight:700;">${g.troop || "-"}</div>
+    </div>
   `;
 
   document.getElementById("modalSkills").innerHTML = buildSkillSections(g);
@@ -522,50 +515,33 @@ function openModal(id) {
 }
 
 function closeModal() {
-  const modal = document.getElementById("detailModal");
-  modal.classList.remove("open");
+  document.getElementById("detailModal").classList.remove("open");
 }
 
-// ====================== 篩選邏輯 ======================
+// ====================== 篩選 ======================
 function applyFilters() {
   const q = searchQuery.trim().toLowerCase();
-
   const filtered = generals.filter(g => {
     const matchFaction = activeFaction === "all" || g.faction === activeFaction;
     const matchForm = activeForm === "all" || g.form === activeForm;
     const matchTroop = activeTroop === "all" || g.troop === activeTroop;
     const matchCareer = activeCareer === "all" || g.career === activeCareer;
-
-    const haystack = [
-      g.name, 
-      g.prefix, 
-      g.troop, 
-      g.career, 
-      g.form, 
-      g.bio
-    ].join(" ").toLowerCase();
-
+    const haystack = [g.name, g.prefix, g.troop, g.career, g.form, g.bio].join(" ").toLowerCase();
     const matchSearch = !q || haystack.includes(q);
-
     return matchFaction && matchForm && matchTroop && matchCareer && matchSearch;
   });
-
   renderCards(filtered);
 }
 
 // ====================== 初始化 ======================
 function initApp() {
   if (typeof generals === "undefined" || !Array.isArray(generals)) {
-    console.error("❌ generals-data.js 載入失敗！請確認檔案路徑正確。");
-    document.getElementById("generalGrid").innerHTML = `<p style="color:#f66;padding:2rem;text-align:center;">武將資料載入失敗，請檢查 hero/generals-data.js</p>`;
+    console.error("❌ generals-data.js 載入失敗！");
     return;
   }
-
   fillSelectOptions("troopFilter", uniqueValues("troop"));
   fillSelectOptions("careerFilter", uniqueValues("career"));
   applyFilters();
-
-  console.log(`✅ 武將圖鑒初始化完成，共 ${generals.length} 位武將`);
 }
 
 // ====================== 事件綁定 ======================
@@ -585,31 +561,13 @@ document.querySelectorAll(".filter-chip").forEach(btn => {
   });
 });
 
-document.getElementById("formFilter").addEventListener("change", e => {
-  activeForm = e.target.value;
-  applyFilters();
-});
-document.getElementById("troopFilter").addEventListener("change", e => {
-  activeTroop = e.target.value;
-  applyFilters();
-});
-document.getElementById("careerFilter").addEventListener("change", e => {
-  activeCareer = e.target.value;
-  applyFilters();
-});
+document.getElementById("formFilter").addEventListener("change", e => { activeForm = e.target.value; applyFilters(); });
+document.getElementById("troopFilter").addEventListener("change", e => { activeTroop = e.target.value; applyFilters(); });
+document.getElementById("careerFilter").addEventListener("change", e => { activeCareer = e.target.value; applyFilters(); });
 
 document.getElementById("generalGrid").addEventListener("click", e => {
   const card = e.target.closest(".general-card");
   if (card) openModal(parseInt(card.dataset.id, 10));
-});
-
-document.getElementById("generalGrid").addEventListener("keydown", e => {
-  if (e.key !== "Enter" && e.key !== " ") return;
-  const card = e.target.closest(".general-card");
-  if (card) {
-    e.preventDefault();
-    openModal(parseInt(card.dataset.id, 10));
-  }
 });
 
 document.getElementById("modalClose").addEventListener("click", closeModal);
