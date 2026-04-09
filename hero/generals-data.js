@@ -55,7 +55,7 @@ const generals = [
       strategy: [],
       followers: []
     }
-  },
+  }
 {
   id: 2,
   name: "普通·疾風司馬懿",
