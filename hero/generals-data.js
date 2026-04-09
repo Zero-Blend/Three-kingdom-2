@@ -8,9 +8,10 @@
 //   群雄 → hero/data-qun.js
 // =============================================
 
-const generals = [
-  ...generals_wei,
-  ...generals_shu,
-  ...generals_wu,
-  ...generals_qun
-];
+// 使用 var 避免與 index.html 內的變數名衝突
+var generals = [].concat(
+  generals_wei,
+  generals_shu,
+  generals_wu,
+  generals_qun
+);
