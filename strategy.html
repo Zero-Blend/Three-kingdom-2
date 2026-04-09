@@ -183,7 +183,7 @@ main{padding:16px;max-width:900px;margin:0 auto;}
 
 <main>
   <h1 class="page-title">陣容攻略</h1>
-  <p class="page-sub">精選各陣容攻略連結，點擊卡片前往閱讀完整攻略。</p>
+  <p class="page-sub">精選各陣容攻略連結，點擊卡片前往閱讀完整攻略。自動按更新日期由新到舊排列。</p>
 
   <div class="filters">
     <div class="filter-block">
@@ -250,8 +250,13 @@ function formatDate(d){
   return d ? d.replace(/-/g,'.') : '-';
 }
 
-// 陣營篩選對應的 faction key 列表
-const factionMap = { wei:['wei'], shu:['shu'], wu:['wu'], qun:['qun'] };
+function sortByDate(arr){
+  return [...arr].sort((a, b) => {
+    const da = a.date ? new Date(a.date) : new Date(0);
+    const db = b.date ? new Date(b.date) : new Date(0);
+    return db - da; // 由新到舊
+  });
+}
 
 function getFilteredByFaction(){
   if(activeFaction === 'all') return strategies;
@@ -261,7 +266,7 @@ function getFilteredByFaction(){
 function buildTeamChips(){
   const pool = getFilteredByFaction();
   const teams = ['all', ...new Set(pool.map(s => s.team))];
-  activeTeam = 'all'; // 切換陣營時重置隊伍
+  activeTeam = 'all';
   document.getElementById('teamChips').innerHTML = teams.map(t => {
     const label = t === 'all' ? '全部' : t;
     const active = t === activeTeam;
@@ -272,6 +277,7 @@ function buildTeamChips(){
 function renderList(){
   let list = getFilteredByFaction();
   if(activeTeam !== 'all') list = list.filter(s => s.team === activeTeam);
+  list = sortByDate(list); // 排序：日期由新到舊
 
   const container = document.getElementById('strategyList');
   const noRes = document.getElementById('noResults');
@@ -300,7 +306,6 @@ function renderList(){
   `).join('');
 }
 
-// 陣營篩選
 document.getElementById('factionChips').addEventListener('click', e => {
   const btn = e.target.closest('.filter-chip');
   if(!btn) return;
@@ -310,7 +315,6 @@ document.getElementById('factionChips').addEventListener('click', e => {
   renderList();
 });
 
-// 隊伍篩選
 document.getElementById('teamChips').addEventListener('click', e => {
   const btn = e.target.closest('.filter-chip');
   if(!btn) return;
